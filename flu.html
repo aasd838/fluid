@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ميكانيك الموائع II — الشرح الكامل مع أخطاء الطلاب</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/ibm-plex-sans-arabic@5.0.8/300.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/ibm-plex-sans-arabic@5.0.8/400.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/ibm-plex-sans-arabic@5.0.8/500.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/ibm-plex-sans-arabic@5.0.8/700.css">
+
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+  options: { ignoreHtmlClass: 'no-math', processHtmlClass: 'mathjax' },
+  startup: { typeset: true }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+
+<style>
+:root{
+  --bg:#f6f4ee;
+  --card:#ffffff;
+  --ink:#182433;
+  --ink-soft:#4a5a6d;
+  --navy:#0b3c5d;
+  --navy-2:#123f63;
+  --cyan:#0e8aa8;
+  --cyan-soft:#e3f3f8;
+  --amber:#b45309;
+  --amber-soft:#fdf3e2;
+  --red:#b91c1c;
+  --red-soft:#fdeeee;
+  --green:#047857;
+  --green-soft:#e9f7f1;
+  --line:#e2ddd0;
+  --shadow:0 6px 24px rgba(16,42,67,.08);
+  --radius:16px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'IBM Plex Sans Arabic',Tahoma,sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  line-height:1.95;
+  font-size:16.5px;
+}
+.mathjax .eq{direction:ltr;text-align:center}
+
+/* ---------- progress bar ---------- */
+#progress{position:fixed;top:0;right:0;height:4px;width:0;background:linear-gradient(90deg,#0e8aa8,#f5a623);z-index:99}
+
+/* ---------- hero ---------- */
+.hero{
+  position:relative;overflow:hidden;
+  background:radial-gradient(1200px 500px at 85% -10%, #14557f 0%, transparent 60%),
+             radial-gradient(900px 400px at 10% 110%, #0d4c66 0%, transparent 55%),
+             linear-gradient(160deg,#082c44,#0b3c5d 55%,#0d3050);
+  color:#eaf3fa;padding:70px 20px 90px;text-align:center;
+}
+.hero::before{
+  content:"";position:absolute;inset:0;opacity:.12;
+  background-image:linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px);
+  background-size:44px 44px;
+}
+.hero-inner{position:relative;max-width:900px;margin:0 auto}
+.badge{
+  display:inline-block;background:rgba(245,166,35,.14);border:1px solid rgba(245,166,35,.5);
+  color:#ffd98a;border-radius:999px;padding:6px 20px;font-size:14px;margin-bottom:22px;letter-spacing:.3px
+}
+.hero h1{font-size:clamp(30px,5vw,50px);font-weight:700;line-height:1.5;margin-bottom:14px}
+.hero h1 span{color:#7fd4ef}
+.hero p.sub{color:#bcd4e4;font-size:18px;max-width:720px;margin:0 auto 30px;font-weight:300}
+.hero-stats{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.hstat{
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);
+  border-radius:14px;padding:12px 22px;min-width:140px
+}
+.hstat b{display:block;font-size:26px;color:#8fd8f0}
+.hstat small{color:#c3d9e8;font-size:13px}
+
+/* ---------- nav ---------- */
+nav.chips{
+  position:sticky;top:0;z-index:50;background:rgba(246,244,238,.92);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);padding:12px 16px;
+  display:flex;gap:8px;overflow-x:auto;white-space:nowrap;justify-content:flex-start;
+}
+nav.chips a{
+  text-decoration:none;color:var(--ink-soft);font-size:14px;padding:8px 16px;border-radius:999px;
+  border:1px solid transparent;transition:.25s;font-weight:500
+}
+nav.chips a:hover{background:var(--cyan-soft);color:var(--navy)}
+nav.chips a.active{background:var(--navy);color:#fff}
+
+/* ---------- layout ---------- */
+main{max-width:960px;margin:0 auto;padding:50px 20px 80px}
+section.chapter{margin-bottom:80px;scroll-margin-top:80px}
+.ch-head{display:flex;align-items:center;gap:16px;margin-bottom:8px}
+.ch-num{
+  flex-shrink:0;width:58px;height:58px;border-radius:18px;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--navy),#14709c);color:#fff;font-size:24px;font-weight:700;
+  box-shadow:var(--shadow)
+}
+.ch-head h2{font-size:clamp(24px,3.4vw,32px);color:var(--navy);line-height:1.5}
+.ch-tag{color:var(--ink-soft);font-size:15px;margin-bottom:26px;padding-right:74px;font-weight:300}
+@media(max-width:600px){.ch-tag{padding-right:0}}
+
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:26px 28px;margin-bottom:20px;box-shadow:var(--shadow)
+}
+.card h3{
+  color:var(--navy);font-size:20px;margin-bottom:12px;display:flex;align-items:center;gap:10px
+}
+.card h3 .dot{width:10px;height:10px;border-radius:50%;background:var(--cyan);flex-shrink:0}
+.card h4{color:#0d5a7a;font-size:17px;margin:18px 0 8px}
+.card p{margin-bottom:10px}
+.card ul,.card ol{margin:8px 22px 12px 0}
+.card li{margin-bottom:7px}
+strong{color:var(--navy)}
+
+/* equation box */
+.eqbox{
+  direction:ltr;text-align:center;background:#f4f9fc;border:1px solid #cfe6f0;border-radius:12px;
+  padding:16px 14px;margin:14px 0;font-size:17px;overflow-x:auto
+}
+.eqbox small{display:block;color:#5a7d90;font-size:12px;margin-top:6px;font-family:'IBM Plex Sans Arabic'}
+
+/* callouts */
+.warn{
+  background:var(--red-soft);border:1px solid #f3caca;border-right:5px solid var(--red);
+  border-radius:12px;padding:18px 22px;margin:18px 0
+}
+.warn .ttl{color:var(--red);font-weight:700;font-size:16px;display:flex;gap:8px;align-items:center;margin-bottom:8px}
+.warn ul{margin-right:20px}
+.warn li{margin-bottom:6px;color:#5c2323}
+
+.tip{
+  background:var(--green-soft);border:1px solid #bfe6d5;border-right:5px solid var(--green);
+  border-radius:12px;padding:18px 22px;margin:18px 0;color:#14453a
+}
+.tip .ttl{color:var(--green);font-weight:700;display:flex;gap:8px;align-items:center;margin-bottom:6px}
+
+.note{
+  background:var(--amber-soft);border:1px solid #f0d9ae;border-right:5px solid var(--amber);
+  border-radius:12px;padding:16px 22px;margin:16px 0;color:#6b4212
+}
+.note b{color:var(--amber)}
+
+/* tables */
+.tbl-wrap{overflow-x:auto;margin:14px 0}
+table{width:100%;border-collapse:collapse;background:#fff;font-size:15px;min-width:480px}
+th{background:var(--navy);color:#fff;padding:11px 14px;font-weight:500;text-align:center}
+td{border:1px solid var(--line);padding:10px 14px;text-align:center}
+tr:nth-child(even) td{background:#fafaf6}
+td.ltr{direction:ltr;font-weight:500}
+
+/* steps */
+.steps{counter-reset:st;margin:14px 0}
+.step{
+  position:relative;padding:14px 60px 14px 18px;background:#fbfbf8;border:1px solid var(--line);
+  border-radius:12px;margin-bottom:10px
+}
+.step::before{
+  counter-increment:st;content:counter(st);
+  position:absolute;right:14px;top:50%;transform:translateY(-50%);
+  width:32px;height:32px;border-radius:50%;background:var(--cyan);color:#fff;
+  display:grid;place-items:center;font-weight:700;font-size:15px
+}
+
+/* details (practice) */
+details{background:#fbfbf8;border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:12px 0}
+summary{cursor:pointer;font-weight:700;color:var(--navy)}
+details[open]{background:#fff}
+details .ans{direction:ltr;text-align:center;color:var(--green);font-weight:700;margin-top:8px}
+
+/* two column grid */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:720px){.grid2{grid-template-columns:1fr}}
+.mini{
+  background:#fbfbf8;border:1px solid var(--line);border-radius:12px;padding:18px 20px
+}
+.mini h4{margin-top:0;color:var(--navy)}
+
+/* calculators */
+.calc-card{border-top:4px solid var(--cyan)}
+.calc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:14px 0}
+.calc-grid label{font-size:13px;color:var(--ink-soft);display:block;margin-bottom:4px}
+.calc-grid input{
+  width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;font-size:15px;
+  font-family:inherit;direction:ltr;text-align:center;background:#fff
+}
+.calc-grid input:focus{outline:2px solid var(--cyan);border-color:transparent}
+.calc-btn{
+  background:var(--navy);color:#fff;border:none;border-radius:10px;padding:11px 30px;font-size:15px;
+  cursor:pointer;font-family:inherit;transition:.2s
+}
+.calc-btn:hover{background:#14709c;transform:translateY(-1px)}
+.calc-out{
+  direction:ltr;background:#0b3c5d;color:#9fe3ff;border-radius:12px;padding:16px 20px;margin-top:14px;
+  font-size:16px;line-height:2.1;min-height:56px;text-align:center
+}
+.calc-out .regime{display:inline-block;padding:2px 14px;border-radius:999px;font-weight:700;margin-top:4px}
+.rg-lam{background:#0d5c3f;color:#b8f5d8}
+.rg-tur{background:#7c1d1d;color:#ffd0d0}
+.rg-tr{background:#7a4d0b;color:#ffe3b0}
+
+/* footer */
+footer{background:var(--navy);color:#bcd4e4;text-align:center;padding:34px 20px;font-size:14px}
+footer b{color:#8fd8f0}
+
+#top-btn{
+  position:fixed;bottom:24px;left:24px;width:48px;height:48px;border-radius:50%;border:none;
+  background:var(--navy);color:#fff;font-size:20px;cursor:pointer;box-shadow:var(--shadow);
+  opacity:0;pointer-events:none;transition:.3s;z-index:60
+}
+#top-btn.show{opacity:1;pointer-events:auto}
+
+.kbd{direction:ltr;display:inline-block;background:#eef2f6;border:1px solid #d4dce4;border-radius:6px;padding:0 8px;font-size:14px}
+.tag{display:inline-block;background:var(--cyan-soft);color:var(--navy);border-radius:8px;padding:2px 12px;font-size:13px;margin-left:6px}
+</style>
+</head>
+<body class="mathjax">
+
+<div id="progress"></div>
+
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <div class="hero-inner">
+    <span class="badge">📐 هندسة ميكانيكية — السنة الرابعة</span>
+    <h1>ميكانيك الموائع <span>II</span><br>الشرح الكامل للمحاضرات والمفاهيم الفيزيائية</h1>
+    <p class="sub">فقدان الطاقة في الأنابيب • التحليل البعدي • الطبقة الحدية • الأجسام الانسيابية • القوى المؤثرة بين الموائع والسطوح — مع التنبيهات المفصّلة للأخطاء التي يقع فيها الطلاب</p>
+    <div class="hero-stats">
+      <div class="hstat"><b>6</b><small>وحدات دراسية</small></div>
+      <div class="hstat"><b>+30</b><small>معادلة أساسية</small></div>
+      <div class="hstat"><b>+35</b><small>تنبيهاً لأخطاء شائعة</small></div>
+      <div class="hstat"><b>3</b><small>حاسبات تفاعلية</small></div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= NAV ================= -->
+<nav class="chips" id="nav">
+  <a href="#intro">🗺️ خريطة المقرر</a>
+  <a href="#ch1">١ · فقدان الطاقة في الأنابيب</a>
+  <a href="#ch2">٢ · التحليل البعدي</a>
+  <a href="#ch3">٣ · الطبقة الحدية</a>
+  <a href="#ch4">٤ · القوى بين الموائع والسطوح</a>
+  <a href="#ch5">٥ · الأجسام الانسيابية</a>
+  <a href="#ch6">٦ · الانسياب تحت سمك متغير</a>
+  <a href="#calcs">🧮 حاسبات</a>
+  <a href="#golden">⭐ القواعد الذهبية</a>
+</nav>
+
+<main>
+
+<!-- ================= INTRO ================= -->
+<section class="chapter" id="intro">
+  <div class="ch-head"><div class="ch-num">🗺️</div><h2>خريطة المقرر: الصورة الكبيرة</h2></div>
+  <p class="ch-tag">قبل الغوص في التفاصيل، افهم كيف ترتبط الوحدات الست ببعضها.</p>
+
+  <div class="card">
+    <h3><span class="dot"></span>الفكرة المحورية للمقرر كله</h3>
+    <p>كل هذا المقرر يدور حول سؤال واحد: <strong>ماذا يحدث للطاقة عندما ينساب مائع حقيقي (لزج)؟</strong></p>
+    <ul>
+      <li><strong>الفصل ١:</strong> نحسب <em>كمية</em> الطاقة المفقودة في الأنابيب (احتكاك + خسائر ثانوية).</li>
+      <li><strong>الفصل ٢:</strong> نتعلم <em>لغة</em> المبسّطة للظواهر: التحليل البعدي ونظرية التشابه لربط النموذج بالنموذج الأصلي.</li>
+      <li><strong>الفصل ٣:</strong> نفتح الصندوق الأسود: <em>أين</em> يحدث الفقد؟ في الطبقة الحدية الملاصقة للسطح.</li>
+      <li><strong>الفصل ٤ و٥:</strong> نطبق على السطوح والأجسام: قوى الرفع والممانعة، وكيف نصمم شكلاً انسيابياً يقلّل الفقد.</li>
+      <li><strong>الفصل ٦:</strong> حالة عملية: تفريغ الخزانات حيث السمك (الارتفاع) يتغير مع الزمن.</li>
+    </ul>
+    <div class="tip"><span class="ttl">💡 قاعدة ذهبية قبل أن تبدأ</span>
+      المائع المثالي لا يفقد طاقة أبداً. كل ما في هذا المقرر هو <strong>انحراف المائع الحقيقي عن المثالي بسبب اللزوجة والاضطراب</strong>. كلما تذكرت هذه الجملة، أصبحت كل المعادلات منطقية.
+    </div>
+  </div>
+</section>
+
+<!-- ================= CHAPTER 1 ================= -->
+<section class="chapter" id="ch1">
+  <div class="ch-head"><div class="ch-num">١</div><h2>فقدان الطاقة في الأنابيب</h2></div>
+  <p class="ch-tag">Energy Losses in Pipes — أين تذهب الطاقة؟ وما ثمن نقل الموائع؟</p>
+
+  <div class="card">
+    <h3><span class="dot"></span>١.١ المفهوم الفيزيائي: لماذا نفقد طاقة أصلاً؟</h3>
+    <p>عندما ينساب مائع حقيقي داخل أنبوب، تنشأ <strong>قوى احتكاك</strong> بين طبقات المائع (بسبب اللزوجة) وبين المائع وجدار الأنبوب. هذا الاحتكاك يحوّل جزءاً من الطاقة الميكانيكية (ضغط + سرعة + ارتفاع) إلى <strong>طاقة حرارية</strong> لا يمكن استردادها عملياً.</p>
+    <p>لذلك لا تبقى معادلة برنولي مثالية، بل نضيف حداً للفقد:</p>
+    <div class="eqbox">
+      \[ \frac{P_1}{\rho g}+\frac{v_1^2}{2g}+Z_1 \;=\; \frac{P_2}{\rho g}+\frac{v_2^2}{2g}+Z_2 + h_l \]
+      <small>معادلة برنولي المعدّلة — h_l هو الفقد الكلي بين النقطتين 1 و 2</small>
+    </div>
+    <p>تنقسم الفقدات إلى نوعين، والتمييز بينهما هو أول خطوة في الحل الصحيح:</p>
+    <div class="grid2">
+      <div class="mini">
+        <h4>① فقدات رئيسية (Major / Principal)</h4>
+        <p>بسبب <strong>الاحتكاك</strong>، موزّعة على طول الأنبوب، وتزداد مع الطول. لا يمكن إهمالها أبداً في الأنابيب الطويلة.</p>
+      </div>
+      <div class="mini">
+        <h4>② فقدات ثانوية (Minor / Secondary)</h4>
+        <p>بسبب <strong>تغيّر مفاجئ</strong> في المقطع أو الاتجاه: مداخل، مخارج، صمامات، منحنيات. سُمّيت "ثانوية" لأنها غالباً أصغر من فقد الاحتكاك في الأنابيب الطويلة — لكنها قد تصبح هي المهيمنة في الأنابيب القصيرة!</p>
+      </div>
+    </div>
+    <div class="warn"><span class="ttl">⚠️ خطأ شائع #١</span>
+      <ul>
+        <li>الاعتقاد أن "ثانوية" تعني "مهملة دائماً". في منظومة قصيرة فيها عدة صمامات ومرفقين، قد تكون الفقدات الثانوية أكبر من فقد الاحتكاك نفسه.</li>
+        <li>الخطأ المعاكس أيضاً: إضافتها في مسائل ينص السؤال صراحة على إهمالها (اقرأ نص السؤال مرتين!).</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>١.٢ الفقد الرئيسي: معادلة دارسي</h3>
+    <div class="eqbox">
+      \[ h_f \;=\; \frac{4\,f\,L\,v^{2}}{2g\,D} \]
+      <small>معادلة دارسي لفقد الاحتكاك — بالشكل المستخدم في هذا المقرر</small>
+    </div>
+    <ul>
+      <li><strong>f</strong> : معامل الاحتكاك (بالاتفاقية المستخدمة في هذا المقرر، حيث يظهر العامل 4 صراحة في المعادلة).</li>
+      <li><strong>L</strong> : طول الأنبوب (m) — <strong>D</strong> : القطر (m) — <strong>v</strong> : سرعة الانسياب (m/s).</li>
+      <li>الفقد يتناسب <strong>مع مربع السرعة</strong>: مضاعفة السرعة تعني أربعة أضعاف الفقد! لهذا تُنقل الموائع بسرعات معتدلة في الخطوط الطويلة.</li>
+    </ul>
+    <div class="warn"><span class="ttl">⚠️ خطأ شائع #٢ — فخ المعامل 4</span>
+      <ul>
+        <li>بعض المراجع تكتب <span class="kbd">h_f = f_D·L·v²/(2gD)</span> حيث <span class="kbd">f_D = 4f</span> (معامل دارسي الكامل). إذا أخذت قيمة f من مرجع وحشرتَها في صيغة المقرر دون انتباه، سيصبح خطؤك <strong>أربعة أضعاف</strong>!</li>
+        <li>القاعدة: انظر إلى الصيغة المكتوبة في سؤالك والتزم بها من أول سطر حتى آخره، ووحّد كل الحدود على نفس السرعة.</li>
+      </ul>
+    </div>
+    <div class="note"><b>📌 تنبيه الوحدات:</b> القطر يُعطى غالباً بالمليمتر (150 mm مثلاً). قسمة واحدة تنساها تحوّل إجابتك إلى خطأ بنسبة 1000! حوّل فوراً: <span class="kbd">D = 150/1000 = 0.15 m</span>.</div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>١.٣ الفقدات الثانوية: جدول المعاملات الذهبي</h3>
+    <p>كل فقد ثانوي يُكتب بصيغة موحدة، والفرق كله في المعامل <span dir="ltr">C<sub>L</sub></span>:</p>
+    <div class="eqbox">\[ h_l = C_L\,\frac{v^{2}}{2g} \]</div>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>الحالة</th><th>المعامل C<sub>L</sub></th><th>السرعة المستخدمة</th></tr>
+        <tr><td>مدخل الأنبوب (حاد)</td><td class="ltr">0.5</td><td>سرعة داخل الأنبوب</td></tr>
+        <tr><td>مخرج الأنبوب</td><td class="ltr">1.0</td><td>سرعة داخل الأنبوب</td></tr>
+        <tr><td>تقلص مفاجئ</td><td class="ltr">0.5</td><td>السرعة <strong>بعد</strong> التقلص</td></tr>
+        <tr><td>اتساع مفاجئ</td><td class="ltr">(v₁−v₂)²/2v²</td><td>راجع الاشتقاق أدناه</td></tr>
+        <tr><td>مرفق Elbow</td><td class="ltr">1.0</td><td>سرعة الأنبوب</td></tr>
+        <tr><td>وصلة حرف T</td><td class="ltr">1.0</td><td>سرعة الأنبوب</td></tr>
+        <tr><td>منحني Bend</td><td class="ltr">0.2 ← 0.4</td><td>يعتمد على النسبة R/r</td></tr>
+        <tr><td>صمام Valve</td><td class="ltr">10</td><td>سرعة الأنبوب</td></tr>
+      </table>
+    </div>
+    <div class="warn"><span class="ttl">⚠️ خطأ شائع #٣ — فقدان السرعة عند المخرج</span>
+      <ul>
+        <li>عندما يخرج المائع من الأنبوب إلى خزان أو الجو، <strong>كل</strong> طاقة السرعة <span dir="ltr">v²/2g</span> تضيع (تتبدد باضطراب في الحوض). الطلاب كثيراً ما يكتبون <span class="kbd">h_exit = 0</span> لأن الضغط عند المخرج معلوم! الصحيح: <span class="kbd">h_exit = v²/2g</span> دائماً.</li>
+        <li>عند المدخل: الفقد <span dir="ltr">0.5·v²/2g</span> فقط وليس <span dir="ltr">v²/2g</span> — لأن جزءاً من الطاقة ما زال موجوداً داخل الأنبوب كطاقة سرعة.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>١.٤ الاتساع المفاجئ: اشتقاق يجب أن تفهمه لا أن تحفظه</h3>
+    <p>عند اتساع مفاجئ من مقطع <span dir="ltr">a₁</span> إلى <span dir="ltr">a₂</span>، تبطؤ المائع فجأة (من <span dir="ltr">v₁</span> إلى <span dir="ltr">v₂</span>) فيحدث اضطراب ودوّامات تبدد الطاقة. الاشتقاق يستخدم ثلاث أدوات معاً:</p>
+    <div class="steps">
+      <div class="step"><strong>معادلة الاستمرارية:</strong> <span dir="ltr">a₁v₁ = a₂v₂</span> لربط السرعتين.</div>
+      <div class="step"><strong>معادلة كمية الحركة (نيوتن):</strong> محصلة القوى على المائع بين المقطعين = معدل تغير كمية الحركة. بالتجربة وجد أن الضغط في منطقة الدوّامات تقريباً <span dir="ltr">P₀ ≈ P₁</span>.</div>
+      <div class="step"><strong>معادلة برنولي مع الفقد:</strong> نساوي الفرق في الطاقة بالفقد <span dir="ltr">h_l</span>.</div>
+      <div class="step">بتعويض (2) في (3) والقسمة على g والترتيب، تظهر النتيجة الشهيرة (بوردا–كارنو).</div>
+    </div>
+    <div class="eqbox">
+      \[ h_l \;=\; \frac{(v_1 - v_2)^{2}}{2g} \]
+      <small>فقد الاتساع المفاجئ — لاحظ أنه يعتمد على <b>فرع</b> السرعتين مربعاً، لا على فرق مربعيهما!</small>
+    </div>
+    <div class="warn"><span class="ttl">⚠️ خطأ شائع #٤</span>
+      <ul>
+        <li>كتابة <span dir="ltr">(v₁²−v₂²)/2g</span> بدل <span dir="ltr">(v₁−v₂)²/2g</span>. الفرق ضخم عددياً! تذكّر: القوس <strong>أولاً</strong> ثم التربيع.</li>
+        <li>حالة خاصة مهمة: المخرج إلى خزان هو اتساع مفاجئ إلى ما لا نهاية (<span dir="ltr">v₂≈0</span>) فتصبح <span dir="ltr">h_l = v₁²/2g</span> — وهذا يفسر لماذا معامل المخرج = 1.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>١.٥ التقلص المفاجئ: سرّ الوريد المتقلص</h3>
+    <p>عند تقلص مفاجئ لا "يتقلص" الانسياب مع الجدار مباشرة، بل يستمر متقارباً <strong>بعد</strong> المقطع الأصغر مشكّلاً أضيق مقطع يُسمى <strong>الوريد المتقلص</strong> <span dir="ltr">a_c</span> (Vena Contracta)، ثم يتسع مجدداً فيملأ الأنبوب. الفقد يحدث فعلياً في هذا <strong>الاتساع</strong> بعد الوريد:</p>
+    <div class="eqbox">
+      \[ h_l \;=\; \frac{(v_c - v)^{2}}{2g} \;=\; \left(\frac{1}{C_c}-1\right)^{2}\frac{v^{2}}{2g} \]
+      <small>حيث C_c = a_c / a معامل التقلص، و v السرعة في المقطع الأصغر</small>
+    </div>
+    <div class="eqbox">
+      \[ \text{إذا لم يُعطَ } C_c \;\Rightarrow\; C_L = 0.5 \;\Rightarrow\; h_l = 0.5\,\frac{v^{2}}{2g} \]
+      <small>القيمة العملية الافتراضية المعتمدة في هذا المقرر</small>
+    </div>
+    <div class="warn"><span class="ttl">⚠️ خطأ شائع #٥</span>
+      <ul>
+        <li>استخدام معادلة الاتساع المفاجئ مباشرة على التقلص المفاجئ. التقلص يحتاج <span dir="ltr">C_c</span> أو القيمة 0.5 — فيزيائياً لأن الفقد يحدث في الاتساع <em>بعد</em> الوريد وليس في التقلص نفسه.</li>
+        <li>خلط الترتيب: المدخل الحاد للأنبوب = تقلص مفاجئ (0.5)، وليس اتساعاً.</li>
+      </ul>
+    </div>
+    <div class="tip"><span class="ttl">💡 لماذا معامل المدخل 0.5 بينما الصمام 10؟</span>
+      الصمام يغيّر اتجاه الانسياب عدة مرات ويولّد دوامات عنيفة في مساره المتعرّج، فيستهلك طاقة أكبر بعشرين مرة من مدخل بسيط. الفيزياء: <strong>كلما زادت شدة الانفصال والدوّامات، زاد الفقد</strong> — وهذه الفكرة سترافقك حتى فصل الأجسام الانسيابية.</div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>١.٦ منهجية حل مسائل الأنابيب (خوارزمية مضمونة)</h3>
+    <div class="steps">
+      <div class="step">ارسم المنظومة وحدّد نقطتين: عادة سطح الخزان العلوي (v≈0، P=جوّي) والمخرج.</div>
+      <div class="step">اكتب برنولي بينهما مع <strong>كل</strong> حدود الفقد: <span dir="ltr">H = v²/2g + Σh_l</span>.</div>
+      <div class="step">استخدم الاستمرارية للتعبير عن <strong>كل السرعات بدلالة سرعة واحدة</strong> (اختر سرعة الأنبوب الأوسع غالباً — أرقام أصغر).</div>
+      <div class="step">عوّض واجمع المعاملات: <span dir="ltr">H = (ΣK)·v²/2g</span> حيث كل K رقم خالص.</div>
+      <div class="step">أوجد v ثم <span dir="ltr">Q = A·v = (π/4)D²·v</span>.</div>
+    </div>
+
+    <h4>📝 مثال محلولة ١ — خط أنابيب مع اتساع مفاجئ</h4>
+    <p>أنبوب أفقي طوله 40 م (25 م بقطر 150 mm ثم 15 م بقطر 300 mm بعد اتساع مفاجئ) يصل خزاناً بالجوّ. ارتفاع الماء في الخزان 8 م فوق مركز الأنبوب، f = 0.01، أوجد معدل الانسياب مع كل الفقدات.</p>
+    <div class="eqbox">
+      \[ v_1 = v_2\left(\tfrac{D_2}{D_1}\right)^2 = 4\,v_2 \]
+      \[ 8 = \tfrac{v_2^2}{2g}\Big[\,0.5(4)^2 + \tfrac{4fL_1}{D_1}(4)^2 + (4-1)^2 + \tfrac{4fL_2}{D_2} + 1\,\Big] \]
+      \[ 8 = \tfrac{v_2^2}{2g}\,[\,8 + 106.67 + 9 + 2 + 1\,] = \tfrac{v_2^2}{2g}(126.67) \]
+      \[ v_2 = 1.113 \ \text{m/s} \;\Rightarrow\; Q = \tfrac{\pi}{4}(0.3)^2(1.113) = 0.0786 \ \text{m}^3/\text{s} \]
+      <small>مدخل(8) + احتكاك الجزء الضيق(106.67) + اتساع مفاجئ(9) + احتكاك الجزء الواسع(2) + مخرج(1)</small>
+    </div>
+
+    <h4>📝 مثال محلولة ٢ — خزانان بأنبوبين متعاقبين</h4>
+    <p>خزانان، فرق المنسوب بينهما 6 م، أنبوب أول قطره 15 cm وطوله 6 m يليه اتساع مفاجئ ثم أنبوب ثانٍ قطره 22.5 cm وطوله 16 m، f = 0.04 للأنبوبين.</p>
+    <div class="eqbox">
+      \[ v_1 = 2.25\,v_2 \quad,\quad 6 = \tfrac{v_2^2}{2g}\,[\,2.531 + 32.4 + 1.5625 + 11.378 + 1\,] \]
+      \[ 6 = \tfrac{v_2^2}{2g}(48.872) \;\Rightarrow\; v_2 = 1.552\ \text{m/s} \;\Rightarrow\; Q = 0.0617\ \text{m}^3/\text{s} \]
+      <small>مدخل + احتكاك الأنبوب الأول (بسرعة v₁ الأعلى) + اتساع مفاجئ + احتكاك الأنبوب الثاني + مخرج</small>
+    </div>
+    <div class="warn"><span class="ttl">⚠️ خطأ شائع #٦ — توحيد السرعة</span>
+      <ul>
+        <li>أكثر الأخطاء تدميراً في هذه المسائل: جمع معاملات محسوبة بسرعات مختلفة. <strong>حوّل كل حد إلى السرعة نفسها قبل الجمع</strong> (لاحظ كيف ضربنا حد الاحتكاك الأول في 4² و 2.25² في المثالين).</li>
+        <li>فقد الاحتكاك في الأنبوب الأول يُحسب <strong>بسرعة الأنبوب الأول</strong>، لا بسرعة الأنبوب الثاني!</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>١.٧ تدرّب الآن</h3>
+    <details><summary>مسألة: ثلاثة أنابيب على التوالي بين خزانين (300، 200، 400 mm بأطوال 300، 170، 210 m)، فرق المنسوب 12 m. أوجد Q مع إهمال الفقدات الثانوية ثم مع اعتبارها.</summary>
+      <div class="ans">Ans: 0.9945 m³/s , 0.1021 m³/s</div></details>
+    <details><summary>مسألة: مستودع قطر 150 mm وطول 6 m يليه اتساع مفاجئ إلى 225 mm بطول 15 m مع مدخل حاد ومخرج. فرق المنسوب 6 m، f = 0.01. أوجد Q وكل الفقدات.</summary>
+      <div class="ans">Ans: 0.108 m³/s</div></details>
+    <details><summary>مسألة: مستودع يُفرَّغ بالجوّ عبر أنبوب 39 m، قطر 50 mm لأول 15 m ثم يتسع فجأة إلى 75 m. أوجد فرق المنسوب اللازم لتصريف 2.8 dm³/s (f الصغيرة 0.0048 والكبيرة 0.0058).</summary>
+      <div class="ans">Ans: 0.853 m</div></details>
+    <details><summary>مسألة: خط طوله 720 m وقطره 1.2 m يصل خزانين فرق منسوبهما 6 m، يرتفع 3 m فوق منسوب الخزان العلوي بعد 240 m من المدخل. أوجد Q والضغط عند أعلى نقطة.</summary>
+      <div class="ans">Ans: 2.5 m³/s , −51.4 kN/m²</div></details>
+  </div>
+</section>
+
+<!-- ================= CHAPTER 2 ================= -->
+<section class="chapter" id="ch2">
+  <div class="ch-head"><div class="ch-num">٢</div><h2>التحليل البعدي والتشابه</h2></div>
+  <p class="ch-tag">Dimensional Analysis — كيف نستخرج القوانين من الوحدات وحدها؟</p>
+
+  <div class="card">
+    <h3><span class="dot"></span>٢.١ الفكرة: الوحدات تحمل معلومات الفيزياء</h3>
+    <p>الهدف: إيجاد علاقات بين كميات دون حل معادلات تفاضلية معقدة، فقط من خلال <strong>توافق الأبعاد</strong>. أي معادلة صحيحة فيزيائياً يجب أن تكون <strong>متجانسة بُعدياً</strong> (طرفاها لهما نفس الوحدات).</p>
+    <p>الأبعاد الأساسية الثلاثة في نظامنا:</p>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>الكمية</th><th>الوحدة</th><th>البعد</th><th>مثال مشتق</th></tr>
+        <tr><td>الكتلة Mass</td><td class="ltr">kg</td><td class="ltr">M</td><td rowspan="4">القوة F = kg·m/s² <br>بعدها: <span class="ltr">M L T⁻²</span><br>الضغط: <span class="ltr">M L⁻¹ T⁻²</span></td></tr>
+        <tr><td>الطول Length</td><td class="ltr">m</td><td class="ltr">L</td></tr>
+        <tr><td>الزمن Time</td><td class="ltr">s</td><td class="ltr">T</td></tr>
+        <tr><td>—</td><td>—</td><td>—</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>٢.٢ طريقة باكنغهام π — الخطوات الثمانية</h3>
+    <div class="steps">
+      <div class="step">اكتب قائمة بكل المتغيرات التي تتوقع تأثيرها في الظاهرة (n متغيراً).</div>
+      <div class="step">اختر <strong>ثلاثة</strong> متغيرات أساسية (مستقلة الأبعاد، ولا تكوّن فيما بينها مجموعة بلا بعد).</div>
+      <div class="step">عدد المجاميع البعدية = <span dir="ltr">n − 3</span>.</div>
+      <div class="step">كوّن كل π بضم متغير واحد من البقية إلى المتغيرات الأساسية الثلاثة مرفوعة لقوى مجهولة a, b, c.</div>
+      <div class="step">عوّض أبعاد كل متغير (M, L, T).</div>
+      <div class="step">ساوِ أس كل بُعد بالصفر → ثلاث معادلات.</div>
+      <div class="step">حل لإيجاد a, b, c لكل مجموعة π.</div>
+      <div class="step">اكتب العلاقة النهائية: <span dir="ltr">φ(π₁, π₂, ..., πₙ₋₃) = 0</span>.</div>
+    </div>
+
+    <h4>📝 مثال المقرّر: الانسياب خلال فتحة</h4>
+    <p>معدل الانسياب Q خلال فتحة يعتمد على: كثافة المائع ρ، قطر الفتحة d، السرعة v، اللزوجة الديناميكية μ. خمسة متغيرات ⇒ <span dir="ltr">5 − 3 = 2</span> مجاميع.</p>
+    <div class="eqbox">
+      \[ \pi_1 = \rho^{a} v^{b} d^{c} Q \;\Rightarrow\; a=0,\ b=-1,\ c=-2 \;\Rightarrow\; \pi_1 = \frac{Q}{v d^{2}} \]
+      \[ \pi_2 = \rho^{a} v^{b} d^{c} \mu \;\Rightarrow\; a=-1,\ b=-1,\ c=-1 \;\Rightarrow\; \pi_2 = \frac{\mu}{\rho v d} \]
+      \[ \boxed{\;Q = v d^{2}\,\phi\!\left(\frac{\rho v d}{\mu}\right)\;} \]
+      <small>النتيجة النهائية — لاحظ أن القوس هو عدد رينولدز مقلوباً!</small>
+    </div>
+    <div class="warn"><span class="ttl">⚠️ خطأ شائع #٧</span>
+      <ul>
+        <li>اختيار ثلاثة متغيرات أساسية <strong>نفسها لا تكوّن أبعاداً مستقلة</strong> (مثلاً اختيار قطر ونصف قطر وطول — كلها L!). اختر دائماً واحداً هندسياً (L)، واحداً حركياً يتضمن T (مثل v)، وواحداً كتلياً يتضمن M (مثل ρ).</li>
+        <li>أخطاء الإشارات عند حل الأسس: راجع كل بُعد على حدة، وابدأ بالأسهل (البعد الذي يظهر في أقل عدد من المتغيرات).</li>
+        <li>نسيان قلب المجموعة: <span dir="ltr">μ/(ρvd)</span> و<span dir="ltr">ρvd/μ</span> كلاهما صحيح (المقلوب لا يغيّر الصلاحية)، لكن العرف العلمي يستخدم عدد رينولدز بالشكل المقلوب — التزم بالعرف في الإجابة النهائية.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>٢.٣ طريقة رايلي Rayleigh</h3>
+    <p>بديلة لباكنغهام عندما يكون عدد المتغيرات صغيراً: نكتب المتغير التابع كحاصل ضرب بقية المتغيرات مرفوعة لقوى مجهولة مباشرة:</p>
+    <div class="eqbox">
+      \[ Q = k\,\rho^{a}\,d^{b}\,v^{c}\,\mu^{e} \]
+      <small>ثم موازنة الأسس لكل من M و L و T وحلها بدلالة الأس الحر e</small>
+    </div>
+    <p>بتطبيق موازنة الأبعاد على مثال الفتحة نحصل على: <span dir="ltr">a = −e، b = e − 2، c = e − 1</span>، وبالتعويض والتجميع حول الأس e تظهر نفس النتيجة: <span dir="ltr">Q = vd²·φ(ρvd/μ)</span>.</p>
+    <div class="note"><b>📌 متى أستخدم أيهما؟</b> باكنغهام أفضل عندما يزيد عدد المتغيرات على ٤ (تنظّم العمل في جداول)، ورايلي أسرع للمسائل الصغيرة. النتيجتان متكافئتان تماماً.</div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>٢.٤ التشابه: نموذج صغير ⇐ سفينة حقيقية</h3>
+    <p>لدراسة سفينة عملاقة نبني <strong>نموذجاً مصغّراً</strong> ونختبره في حوض تجارب. لكن متى تصلح نتائج النموذج؟ بثلاثة مستويات:</p>
+    <div class="grid2">
+      <div class="mini"><h4>① تشابه هندسي</h4><p>نسبة أبعاد واحدة: <span dir="ltr">L_o/L_m = D_o/D_m</span> — الشكل مطابق تماماً.</p></div>
+      <div class="mini"><h4>② تشابه حركي</h4><p>تتشابه حقول السرعات والتسارعات بين النموذج والأصل.</p></div>
+      <div class="mini"><h4>③ تشابه ديناميكي</h4><p>تتشابه <strong>نسب القوى</strong> المؤثرة: القصور الذاتي، اللزوجة، الجاذبية...</p></div>
+      <div class="mini"><h4>السرعتان المتناظرتان</h4><p>السرعة التي يجب تشغيل النموذج بها كي يتحقق التشابه الديناميكي — تُحسب من شرط التشابه.</p></div>
+    </div>
+    <h4>العدان البعديان الأهم</h4>
+    <div class="eqbox">
+      \[ Re = \frac{\rho v d}{\mu} = \frac{\text{قوة القصور الذاتي}}{\text{قوة اللزوجة}} \qquad Fr = \frac{v^{2}}{L g} = \frac{\text{قوة القصور الذاتي}}{\text{قوة الجاذبية}} \]
+      <small>عدد رينولدز: سيادة اللزوجة (أنابيب، أجسام مغمورة) — عدد فرود: سيادة الجاذبية (سطح حر، أمواج)</small>
+    </div>
+    <ul>
+      <li><strong>شرط تشابه رينولدز:</strong> <span dir="ltr">(ρvd/μ)_m = (ρvd/μ)_o</span> ⇒ السرعة المتناظرة: <span dir="ltr">v_m = v_o·(ρ_o/ρ_m)(μ_m/μ_o)(d_o/d_m)</span>.</li>
+      <li><strong>شرط تشابه فرود:</strong> <span dir="ltr">(v²/Lg)_m = (v²/Lg)_o</span> ⇒ <span dir="ltr">v_m = v_o\sqrt{L_m/L_o}</span>.</li>
+    </ul>
+    <div class="warn"><span class="ttl">⚠️ خطأ شائع #٨</span>
+      <ul>
+        <li>في تشابه فرود ينسى الطالب الجذر التربيعي فيكتب <span dir="kbd">v_m = v_o(L_m/L_o)</span>. الصحيح: <strong>السرعة تتناسب مع جذر الطول</strong>.</li>
+        <li>الخلط بين النموذج m والأصل o في النسبة (النموذج أصغر ⇒ سرعته المناظرة <strong>أقل</strong> في تشابه فرود). إن ظهرت سرعة النموذج أكبر من الأصل في مسألة فرود، فأنت قلبت النسبة!</li>
+        <li>مقاومة الأمواج تخضع لفرود، بينما مقاومة الاحتكاك تخضع لرينولدز — لا يمكن تحقيق الشرطين معاً في نفس المائع إلا مصادفة؛ لذلك تُحسب مقاومة الأمواج بفرود وتُضاف إليها مقاومة الاحتكاك محسوبة بقانون برانتل-شلختنج مباشرة على الأصل.</li>
+      </ul>
+    </div>
+    <h4>📝 مثال محلولة: نموذج سفينة بمقياس 1:25</h4>
+    <p>جسم مغمور جزئياً، مقاومته ناتجة أساساً من تكوين الأمواج. مقاومة النموذج بسرعة 6 m/s هي 1.8 N. أوجد السرعة المتناظرة للأصل والمقاومة المتناظرة.</p>
+    <div class="eqbox">
+      \[ v_o = v_m\sqrt{\tfrac{L_o}{L_m}} = 6\sqrt{25} = 30\ \text{m/s} \]
+      \[ \frac{R_o}{r_w} = \frac{\rho_o v_o^{2} L_o^{2}}{\rho_m v_m^{2} L_m^{2}} = \frac{30^{2}\times 25^{2}}{6^{2}} = 15625 \;\Rightarrow\; R_o = 1.8 \times 15625 = 28125\ \text{N} \]
+      <small>المقاومة تتناسب مع ρv²L² — أي أن مربع السرعة × مربع المقياس يتضاعفان معاً</small>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>٢.٥ تدرّب الآن</h3>
+    <details><summary>أوجد تعبيراً للقوة F المؤثرة على كرة قطرها D تتحرك بسرعة V منتظمة في مائع كثافته ρ ولزوجته μ.</summary>
+      <div class="ans">F = ρv²D² · φ(ρvD/μ)</div></details>
+    <details><summary>كفاءة مروحة η تعتمد على ρ، μ، السرعة الزاوية ω، قطر الدوّار D، ومعدل التدفق Q. أوجد تعبير η.</summary>
+      <div class="ans">η = φ( ρD²ω/μ , Q/(D³ω) )</div></details>
+    <details><summary>فقد الاحتكاك في الأنابيب: P = ρv²·φ(ρvD/μ, L/D) — أثبت ذلك بالتحليل البعدي.</summary>
+      <div class="ans">π₁ = P/(ρv²), π₂ = L/D, π₃ = ρvD/μ</div></details>
+    <details><summary>نموذج بمقياس 1:30، مقاومته 2.3 N بسرعة 1.5 m/s و Q = 2 m³/s. أوجد القيم المتناظرة للأصل.</summary>
+      <div class="ans">8.2158 m/s , 2070 N , 9859 m³/s</div></details>
+  </div>
+</section>
+
+<!-- ================= CHAPTER 3 ================= -->
+<section class="chapter" id="ch3">
+  <div class="ch-head"><div class="ch-num">٣</div><h2>الطبقة الحدية</h2></div>
+  <p class="ch-tag">Boundary Layer — الرقيقة التي تقرر كل شيء: الفقد، الممانعة، وانتقال الحرارة</p>
+
+  <div class="card">
+    <h3><span class="dot"></span>٣.١ المفهوم الفيزيائي: شرط اللزوجة</h3>
+    <p>عندما ينساب مائع فوق سطح صلب، تلتصق جزيئات المائع الملاصقة للسطح به تماماً (<strong>شرط عدم الانزلاق</strong> No-Slip): سرعتها عند الجدار <strong>صفر</strong>. ثم تزداد السرعة كلما ابتعدنا عمودياً عن السطح حتى تصل إلى سرعة التيار الحر <span dir="ltr">U₀</span>.</p>
+    <div class="eqbox">
+      \[ \delta : \text{السمك عند котором } u = 0.99\,U_0 \qquad \tau = \mu\left.\frac{du}{dy}\right|_{y=0} \]
+      <small>تعريف سمك الطبقة الحدية δ، وإجهاد القص عند الجدار يعتمد على ميل منحنى السرعة</small>
+    </div>
+    <ul>
+      <li><strong>داخل الطبقة الحدية:</strong> تدرّج السرعة كبير ⇒ إجهادات القص مهمة ولا تُهمل.</li>
+      <li><strong>خارجها:</strong> التغير في السرعة صغير ⇒ تعامل مع المائع كأنه مثالي.</li>
+      <li>سمك الطبقة δ <strong>يزداد مع البعد x عن المقدمة</strong> تقريباً مع جذر x، لأن تأثير الاحتكاك "يتراكم" كلما طال السطح.</li>
+    </ul>
+    <div class="warn"><span class="ttl">⚠️ خطأ شائع #٩</span>
+      <ul>
+        <li>الاعتقاد أن الطبقة الحدية "خط فاصل حاد". هي منطقة <strong>انتقال تدريجي</strong>، وتعريف 0.99U₀ مجرد اصطلاح هندسي.</li>
+        <li>نسيان أن إجهاد القص عند الجدار يعتمد على <strong>الميل du/dy</strong> وليس على قيمة السرعة نفسها — عند الجدار u = 0 لكن τ أقصى قيمة لها هناك!</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>٣.٢ مراحل نمو الطبقة الحدية</h3>
+    <div class="steps">
+      <div class="step"><strong>طبقة صفائحية (Laminar):</strong> قرب المقدمة، انسياب منظم بطبقات متوازية. δ تنمو ببطء مع √x.</div>
+      <div class="step"><strong>منطقة انتقالية:</strong> يبدأ عدم الاستقرار وتظهر تقلبات.</div>
+      <div class="step"><strong>طبقة مضطربة (Turbulent):</strong> دوامات وخلط عنيف ⇒ δ تنمو أسرع وإجهاد القص أكبر.</div>
+      <div class="step"><strong>الطبقة الصفائحية التحتية (Laminar Sub-layer):</strong> حتى داخل المضطربة تلتصق بالجدار رقيقة صفائحية — مفتاح فهم الخشونة!</div>
+    </div>
+    <div class="eqbox">
+      \[ Re_x = \frac{U_0\,x}{\nu} \qquad \nu = \frac{\mu}{\rho} \]
+      <small>عدد رينولدز المحلي — التحوّل إلى اضطراب عند حدود Re ≈ 5×10⁵ (وفي صيغة المقرر: الطبقة مضطربة عند نهاية الصفيحة إذا بلغ Re ≈ 10⁶)</small>
+    </div>
+    <div class="note"><b>📌 الخشونة متى تهم؟</b> إذا كانت نتوءات السطح الخشن <strong>مغمورة</strong> داخل الطبقة الصفائحية التحتية فالسطح "أملس ديناميكياً" ولا أثر للخشونة. أما إذا <strong>برزة</strong> خارجها فتزداد الدوامات والاحتكاك والفقد. لذلك تُصقل ريش التوربينات ومبادلات الحرارة — ليس ترفاً، بل للتحكم في هذه الرقيقة.</div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>٣.٣ السمكات الأربعة — أهم تعريفات الفصل</h3>
+    <p>لأن الطبقة الحدية تبطّئ الانسياب، يمكن تمثيل أثرها بسمكات "مكافئة" مختلفة، كل واحدة تقيس نقصاً في شيء مختلف:</p>
+    <div class="grid2">
+      <div class="mini"><h4>① سمك الطبقة δ</h4><p>المسافة التي تصل عندها السرعة إلى 0.99U₀ — التعريف الهندسي.</p></div>
+      <div class="mini"><h4>② سمك الإزاحة δ*</h4><p>المسافة التي يجب إزاحة السطح بها لتعويض نقص التدفق الكتلي:</p>
+      <p class="eqbox" style="margin:8px 0">\[ \delta^{*} = \int_0^{\delta}\left(1-\frac{u}{U_0}\right)dy \]</p></div>
+      <div class="mini"><h4>③ سمك كمية الحركة θ</h4><p>السمك المكافئ لنقص تدفق كمية الحركة:</p>
+      <p class="eqbox" style="margin:8px 0">\[ \theta = \int_0^{\delta}\frac{u}{U_0}\left(1-\frac{u}{U_0}\right)dy \]</p></div>
+      <div class="mini"><h4>④ سمك الطاقة δₑ</h4><p>السمك المكافئ لنقص تدفق الطاقة الحركية:</p>
+      <p class="eqbox" style="margin:8px 0">\[ \delta_e = \int_0^{\delta}\frac{u}{U_0}\left(1-\frac{u^{2}}{U_0^{2}}\right)dy \]</p></div>
+    </div>
+    <div class="warn"><span class="ttl">⚠️ خطأ شائع #١٠</span>
+      <ul>
+        <li>خلط التكاملات الثلاثة. الحيلة للحفظ: <strong>الأس على (u/U₀) يتصاعد</strong>: في δ* لا يوجد، في θ يوجد أس ١، في δₑ يوجد أس ٢ — بينما القوس الثاني "مكمّل" (1 − ...) دائماً بنفس أس البسط.</li>
+        <li>الترتيب الطبيعي دائماً: <span dir="ltr">δ* > θ</span> و <span dir="ltr">δₑ > θ</span>. إن حصلت في الحساب على θ أكبر من δ* فراجع تكاملاتك.</li>
+        <li>نسيان حدود التكامل: من 0 إلى δ، مع التعويض <span dir="ltr">η = y/δ</span> ليصبح التكامل من 0 إلى 1 وتخرج δ عاملاً مشتركاً.</li>
+      </ul>
+    </div>
+
+    <h4>📝 مثال محلولة بالكامل: توزيع سرعة قطع مكافئ</h4>
+    <p>إذا كان <span dir="ltr">u/U₀ = 2(y/δ) − (y/δ)²</span> أوجد النسب δ*/δ و θ/δ و δₑ/δ. نضع <span dir="ltr">η = y/δ</span>:</p>
+    <div class="eqbox">
+      \[ \frac{\delta^{*}}{\delta} = \int_0^1 \left(1-2\eta+\eta^2\right)d\eta = 1-1+\tfrac13 = \frac{1}{3} \]
+      \[ \frac{\theta}{\delta} = \int_0^1 (2\eta-\eta^2)(1-2\eta+\eta^2)\,d\eta = \frac{2}{15} \]
+      \[ \frac{\delta_e}{\delta} = \int_0^1 (2\eta-\eta^2)\left(1-(2\eta-\eta^2)^2\right)d\eta = \frac{22}{105} \]
+      \[ \frac{\delta^{*}}{\theta} = \frac{1/3}{2/15} = \frac{5}{2} = 2.5 \]
+      <small>التحقق: 1/3 ≈ 0.333 > 2/15 ≈ 0.133 ✓ و 22/105 ≈ 0.21 > 0.133 ✓ — الترتيب سليم</small>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>٣.٤ معادلة كمية الحركة ومعادلة فون كارمان</h3>
+    <p>بتطبيق حفظ كمية الحركة على عنصر صغير ABCD من الطبقة الحدية (عرضه وحدة)، وموازنة فرق تدفق كمية الحركة بقوة القص عند الجدار <span dir="ltr">τ₀·dx</span>، نحصل على <strong>معادلة فون كارمان التكاملية</strong>:</p>
+    <div class="eqbox">
+      \[ \tau_0 = \rho U_0^{2}\,\frac{d\theta}{dx} \qquad\text{ولصفيحة بعرض } b:\quad D_x = b\,\rho U_0^{2}\,\theta \]
+      <small>إجهاد القص عند الجدار = كثافة × مربع السرعة الحرة × معدل نمو سمك كمية الحركة</small>
+    </div>
+    <p>هذه المعادلة قوية لأنها لا تحتاج معرفة تفاصيل الانسياب — يكفي افتراض شكل لتوزيع السرعة (مثل كثيرات الحدود) وحساب θ ثم الاشتقاق.</p>
+
+    <h4>النتائج الجاهزة للصفيحة المستوية (احفظها مع شروطها)</h4>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>الكمية</th><th>انسياب صفائحي (Blasius)</th><th>انسياب مضطرب</th></tr>
+        <tr><td>سمك الطبقة عند x</td><td class="ltr">δ = 5x / √Re_x</td><td class="ltr">δ = 0.37x / Re_x^0.2</td></tr>
+        <tr><td>معامل الممانعة الكلي C_D</td><td class="ltr">1.328 / √Re_L</td><td class="ltr">0.074 / Re_L^0.2</td></tr>
+        <tr><td>إجهاد القص المحلي τ₀</td><td class="ltr">0.332 ρU₀²/√Re_x</td><td class="ltr">≈ 0.0225 ρU₀²(ν/U₀δ)^0.25</td></tr>
+      </table>
+    </div>
+    <p>ثم قوة الممانعة على وجه واحد: <span dir="ltr">F_D = C_D · ½ρU₀²·A</span> حيث <span dir="ltr">A = L·b</span>.</p>
+
+    <h4>📝 مثال محلولة: صفيحة خشبية في زيت</h4>
+    <p>صفيحة بعرض 0.3 m وطول 2.4 m تتحرك بسرعة 3 m/s، وسمك الطبقة عند المؤخرة 0.075 m. نستخدم معادلة كارمان مع توزيع السرعة المفترض لحساب قوة الممانعة على الوجهين ومعاملها بلا بعد — الفكرة الجوهرية: <strong>نعوّض x = L في δ ثم نحسب θ ثم نطبق معادلة كارمان</strong>.</p>
+    <h4>📝 مثال محلولة: صفيحة 450 × 150 mm في مائع</h4>
+    <p>مائع كثافته النوعية 0.925 ولزوجته الحركية 0.9 ستوكس ينساب بسرعة 6 m/s فوق صفيحة L = 0.45 m، B = 0.15 m:</p>
+    <div class="eqbox">
+      \[ Re_L = \frac{U_0 L}{\nu} = \frac{6 \times 0.45}{0.9\times10^{-4}} = 30\,000 \;\Rightarrow\; \text{صفائحي} \]
+      \[ \delta = \frac{5L}{\sqrt{Re_L}} = \frac{5\times0.45}{173.2} \approx 13\ \text{mm} \]
+      \[ \tau_0 = \frac{0.332\,\rho U_0^{2}}{\sqrt{Re_L}} = \frac{0.332\times925\times36}{173.2} \approx 63.8\ \text{N/m}^2 \]
+      \[ F_D = \frac{1.328}{\sqrt{Re_L}}\cdot\tfrac12\rho U_0^{2}(LB) \approx 8.62\ \text{N}\ (\text{وجه واحد}) \]
+      <small>1 ستوكس = 10⁻⁴ m²/s — لا تنسَ التحويل!</small>
+    </div>
+    <div class="warn"><span class="ttl">⚠️ خطأ شائع #١١</span>
+      <ul>
+        <li>استخدام معاملات المضطرب والصفيحة تعمل في النظام الصفائحي (أو العكس). <strong>احسب Re أولاً دائماً</strong> وقارن بالعتبة قبل اختيار أي صيغة.</li>
+        <li>الخلط بين وحدة الستوكس (cm²/s) والوحدة الدولية: <span dir="kbd">1 stoke = 10⁻⁴ m²/s</span>.</li>
+        <li>نسيان ضرب القوة في 2 إذا طُلبت الممانعة على <strong>الوجهين</strong> معاً.</li>
+        <li>في معادلة كارمان: τ₀ مرتبطة بمشتقة θ بالنسبة لـ x — ليست θ نفسها! اشتقّ بعد التعويض.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>٣.٥ تدرّب الآن</h3>
+    <details><summary>توزيع سرعة معطى، δ = 60 mm. أوجد δ* و θ و δₑ.</summary><div class="ans">10.8 mm , 7.5 mm , 13.02 mm</div></details>
+    <details><summary>توزيع سرعة آخر، δ = 57 mm.</summary><div class="ans">19 mm , 7.6 mm , 11.9 mm</div></details>
+    <details><summary>توزيع سرعة ثالث، δ = 52 mm.</summary><div class="ans">6.5 mm , 5.06 mm , 9.1 mm</div></details>
+    <details><summary>هواء بسرعة 10 m/s فوق صفيحة 1.2 m × 0.9 m، التحوّل عند Re = 2×10⁵ و ν = 0.15 ستوكس. أوجد مسافة الانسياب الصفائحي وسمك الطبقة في النهاية.</summary><div class="ans">0.3 m , 3.91 mm</div></details>
+    <details><summary>صفيحة 500×250 mm، زيت كثافته النوعية 0.9 وسرعته 6 m/s ولزوجته 1 ستوكس. أوجد δ عند المنتصف، τ₀ عند المنتصف، وقوة الممانعة على وجه واحد.</summary><div class="ans">16.83 mm , 87.8 N/m² , 15.51 N</div></details>
+  </div>
+</section>
+
+<!-- ================= CHAPTER 4 ================= -->
+<section class="chapter" id="ch4">
+  <div class="ch-head"><div class="ch-num">٤</div><h2>القوى المؤثرة بين الموائع والسطوح</h2></div>
+  <p class="ch-tag">Force Acting Between Fluids and Surfaces — من اصطدام النفث إلى أجنحة الطائرات وريش التوربينات</p>
+
+  <div class="card">
+    <h3><span class="dot"></span>٤.١ نقطة الركود والضغط الديناميكي</h3>
+    <p>عندما يجبر جسمٌ المائعَ على التوقف أمامه (نقطة الركود)، تتحول طاقة الحركة كلها إلى ضغط (وفي الغازات ترتفع الحرارة أيضاً — "درجة حرارة الركود"). من برنولي:</p>
+    <div class="eqbox">
+      \[ P_{stag} - P = \frac{1}{2}\rho v^{2} \qquad \text{الضغط الديناميكي } q = \frac{1}{2}\rho v^{2} \]
+      <small>نصف ρv² هو "عملة" هذا الفصل كله: كل قوى الرفع والممانعة تُكتب به</small>
+    </div>
+    <p>كل معادلة قوة في هذا الفصل لها الهيكل الموحد:</p>
+    <div class="eqbox">
+      \[ F = C\cdot \frac{1}{2}\rho v^{2}\cdot A \]
+      <small>المعامل C يُحدَّد تجريبياً حسب الشكل والزاوية — وهذا سر وجود CL و CD</small>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>٤.٢ اصطدام المائع بسطح مائل: تفكيك القوى</h3>
+    <p>عند اصطدام نفث بسطح مائل بزاوية، تتولد قوة عمودية على السطح عند <strong>مركز الضغط</strong>. هذه القوة تُحلَّل إلى مركبتين أساسيتين في كل تطبيقات الديناميكا الهوائية:</p>
+    <ul>
+      <li><strong>قوة الممانعة D (Drag):</strong> في اتجاه الانسياب — تعيق الحركة.</li>
+      <li><strong>قوة الرفع L (Lift):</strong> عمودية على اتجاه الانسياب — هي التي ترفع الطائرة وتدور ريش التوربين.</li>
+      <li><strong>المحصلة:</strong> <span dir="ltr">R = √(D² + L²)</span>.</li>
+    </ul>
+    <div class="eqbox">
+      \[ D = C_D\,\tfrac12\rho v^{2} A \qquad L = C_L\,\tfrac12\rho v^{2} A \qquad R = \sqrt{D^2+L^2} \]
+      <small>القدرة المسلطة على السطح = القوة × السرعة النسبية</small>
+    </div>
+    <div class="warn"><span class="ttl">⚠️ خطأ شائع #١٢</span>
+      <ul>
+        <li>اعتبار الرفع "عمودياً على السطح". الرفع عمودي على <strong>اتجاه الانسياب</strong>، والعمودي على السطح هو القوة الكلية قبل التحليل. هذا الخلط يفسد كل حسابات زوايا الريش.</li>
+        <li>نسيان أن A هي <strong>المساحة المسقطة المرجعية</strong> (الوتر × المداد) وليست أي مساحة عابرة.</li>
+        <li>الخلط في تحويل السرعات: km/h ÷ 3.6 = m/s. اكتب التحويل صراحة في ورقتك.</li>
+      </ul>
+    </div>
+
+    <h4>📝 مثال محلولة: نفق رياح</h4>
+    <p>صفيحة مستوية 2 m × 1 m في نفق رياح، سرعة الهواء 50 km/h، الكثافة 1.15 kg/m³، عند زاوية سقوط معينة C_D = 1.8 و C_L = 0.9:</p>
+    <div class="eqbox">
+      \[ v = \frac{50}{3.6} = 13.89\ \text{m/s} \;,\; A = 2\ \text{m}^2 \;,\; \tfrac12\rho v^2 = 110.9\ \text{Pa} \]
+      \[ D = 1.8 \times 110.9 \times 2 = 399.3\ \text{N} \qquad L = 0.9 \times 110.9 \times 2 = 199.7\ \text{N} \]
+      \[ R = \sqrt{399.3^2 + 199.7^2} = 446.4\ \text{N} \qquad Power = D\times v \approx 5.55\ \text{kW} \]
+      <small>وباستخدام المحصلة R تكون القدرة ≈ 6.2 kW — انتبه لاتفاق السؤال</small>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>٤.٣ الجناح الانسيابي Airfoil: مصطلحات لا تُنسى</h3>
+    <ul>
+      <li><strong>الوتر Chord (C):</strong> المسافة المستقيمة بين المقدمة والمؤخرة.</li>
+      <li><strong>المداد Span (S):</strong> طول الجناح (امتداده).</li>
+      <li><strong>المساحة المرجعية:</strong> <span dir="ltr">A = C × S</span> — تُستخدم في معادلتي الرفع والممانعة.</li>
+      <li><strong>زاوية السقوط i (Angle of Attack):</strong> بين الوتر واتجاه الانسياب — أهم متغير تحكم في الطائرة.</li>
+      <li>منحنيات C_L و C_D ضد الزاوية i تُعطى تجريبياً (جداول أو مخططات سقوط).</li>
+    </ul>
+    <div class="tip"><span class="ttl">💡 أفضل زاوية سقوط</span>
+      هي الزاوية التي تعطي <strong>أكبر نسبة C_L / C_D</strong> — أي أكبر رفع مقابل أقل ممانعة. ليست أكبر C_L مطلقة! بعد هذه الزاوية ينفصل الانسياب فوق الجناح وينهار الرفع (الإنهاض Stall).</div>
+
+    <h4>تطبيق على التوربينات: تحليل القوى على ريشة</h4>
+    <p>في التوربينات المائية والهوائية، تُحلَّل القوتان D و L في اتجاه دوران الريشة (المماس) والاتجاه المحوري. المركبة المماسية المفيدة:</p>
+    <div class="eqbox">
+      \[ F_t = L\sin\theta - D\cos\theta \qquad\Rightarrow\qquad Power = Z\,F_t\,u \]
+      <small>θ الزاوية بين الانسياب النسبي واتجاه الدوران، Z عدد الريش، u سرعة Umfang للريشة</small>
+    </div>
+    <div class="warn"><span class="ttl">⚠️ خطأ شائع #١٣</span>
+      <ul>
+        <li>في تحليل ريشة التوربين: D موازية للسرعة النسبية v_r و L عمودية عليها، وليس على u — السرعة المرجعية هي <strong>السرعة النسبية</strong> بين المائع والريشة المتحركة.</li>
+        <li>إشارات المركبة المماسية: <span dir="kbd">L sinθ − D cosθ</span>. قلبها أو تغيير الإشارات يعطي قدرة سالبة أو خاطئة.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CHAPTER 5 ================= -->
+<section class="chapter" id="ch5">
+  <div class="ch-head"><div class="ch-num">٥</div><h2>الأجسام الانسيابية</h2></div>
+  <p class="ch-tag">Streamlined Bodies — لماذا شكل السمكة أفضل من شكل القرص؟</p>
+
+  <div class="card">
+    <h3><span class="dot"></span>٥.١ نوعا الممانعة: الضغط × الشكل</h3>
+    <p>الممانعة الكلية على أي جسم = مجموع مكونين:</p>
+    <div class="grid2">
+      <div class="mini"><h4>① ممانعة الاحتكاك (الطبقة الحدية)</h4><p>من إجهادات القص τ على السطح — موضوع الفصل الثالث بالكامل. تهيمن على الأجسام الرفيعة الطويلة الموازية للانسياب.</p></div>
+      <div class="mini"><h4>② ممانعة الضغط / الشكل (Pressure / Form Drag)</h4><p>من فرق الضغط بين مقدمة الجسم ومؤخرته. تهيمن على الأجسام العريضة العمودية على الانسياب. <strong>هذا هو فصلنا الحالي.</strong></p></div>
+    </div>
+    <div class="eqbox">
+      \[ D_{total} = D_{friction} + D_{pressure} \qquad D_{pressure} = C_D\,\tfrac12\rho v^{2} A \]
+      <small>A هنا المساحة المسقطة للجسم عمودياً على الانسياب</small>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>٥.٢ الانفصال والأثر Wakes — قلب الفيزياء</h3>
+    <p>في معظم الأجسام المغمورة (أسطوانة، كرة...) يحدث <strong>انفصال</strong> بين سطح الجسم والمائع قرب المؤخرة: تتباطأ الطبقة الحدية بفعل الضغط المتزايد حتى تعكس اتجاهها وتنفصل، مكوّنة منطقة <strong>أثر</strong> مضطرب مليئة بالدوّامات العنيفة خلف الجسم.</p>
+    <ul>
+      <li>داخل الأثر: ضغط <strong>منخفض</strong> واضطراب شديد.</li>
+      <li>المقدمة: ضغط مرتفع (نقطة ركود).</li>
+      <li>النتيجة: فرق ضغط كبير ⇒ ممانعة ضغط كبيرة.</li>
+    </ul>
+    <div class="grid2">
+      <div class="mini"><h4>🐟 الجسم الانسيابي</h4><p>يحدث الانفصال <strong>قريباً جداً من المؤخرة</strong> ⇒ الأثر صغير ⇒ ممانعة الضغط <strong>صغيرة جداً</strong>، وتبقى ممانعة الاحتكاك هي المهيمنة.</p></div>
+      <div class="mini"><h4>⚪ الجسم الكليل (قرص/أسطوانة)</h4><p>منطقة الأثر <strong>كبيرة جداً</strong> ⇒ ممانعة الضغط <strong>عالية</strong> وهي المهيمنة مهما صقلنا السطح!</div>
+    </div>
+    <div class="tip"><span class="ttl">💡 التعريف الجامع</span>
+      <strong>الجسم الانسيابي هو الجسم الذي تكون مقاومته (ممانعته) للانسياب أقل ما يمكن</strong> — بتحقيق شكل يؤخر الانفصال قدر الإمكان ويقلّص منطقة الأثر.</div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>٥.٣ معيار الانفصال: انظر إلى الميل عند الجدار</h3>
+    <p>يمكن الحكم على حالة الانسياب من إشارة مشتقة السرعة عند الجدار — مثال المقرر الكلاسيكي: بفحص قيمة <span dir="ltr">(du/dy)|_{y=0}</span> لتوزيع سرعة معطى:</p>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>القيمة عند الجدار</th><th>حالة الانسياب</th><th>التفسير الفيزيائي</th></tr>
+        <tr><td class="ltr">du/dy > 0</td><td><strong>انسياب متصل</strong></td><td>السرعة تزداد بعيداً عن الجدار — الوضع الطبيعي الصحي.</td></tr>
+        <tr><td class="ltr">du/dy = 0</td><td><strong>على وشك الانفصال</strong></td><td>الميل صفر: الطبقة الحدية فقدت طاقتها وتتأهب للانفصال.</td></tr>
+        <tr><td class="ltr">du/dy < 0</td><td><strong>انسياب منفصل</strong></td><td>انعكاس الانسياب قرب الجدار — دوامات وأثر.</td></tr>
+      </table>
+    </div>
+    <div class="warn"><span class="ttl">⚠️ خطأ شائع #١٤</span>
+      <ul>
+        <li>اشتقاق توزيع السرعة ثم نسيان التعويض عند <span dir="kbd">y = 0</span>! المعيار عند <strong>الجدار فقط</strong> وليس عند أي نقطة.</li>
+        <li>الخلط: قيمة u عند الجدار دائماً صفر (شرط اللزوجة) — لا تستنتج شيئاً من u نفسها، بل من <strong>مشتقتها</strong>.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>٥.٤ التحكم في الطبقة الحدية: هندسة ضد الانفصال</h3>
+    <ul>
+      <li><strong>فتحات في الجناح Slots:</strong> تنقل مائعاً نشطاً من منطقة الضغط العالي أسفل الجناح إلى منطقة الضغط المنخفض أعلاه، فتمنح الطبقة الحدية طاقة إضافية وتؤخر الانفصال.</li>
+      <li><strong>القلابات Flaps:</strong> تعمل على إبعاد خطوط الانسياب عن السطح وتقليل تأثير الطبقة الحدية، وتزيد الرفع عند الإقلاع والهبوط.</li>
+      <li>التصميم الانسيابي نفسه: مؤخرة طويلة مستدقة تسمح بارتفاع تدريجي بطيء في الضغط.</li>
+    </ul>
+    <div class="note"><b>📌 تطبيقات النظرية:</b> الطيران، التوربينات الغازية والمائية، المراوح، المضخات، والسيارات الرياضية — كل جسم يتحرك في مائع يستفيد من هذه المبادئ.</div>
+    <div class="warn"><span class="ttl">⚠️ خطأ شائع #١٥ — في مسائل الأجسام المغمورة</span>
+      <ul>
+        <li>استخدام معامل ممانعة قرص لجسم انسيابي أو العكس — C_D يختلف بعشرات الأضعاف بين الأشكال! استخدم معامل الشكل الصحيح من المعطيات.</li>
+        <li>في مسألة النموذج (1:25) لمقاومة الأمواج: لا تربّع نسبة المقياس مرة واحدة فقط — المقاومة تتناسب مع <span dir="kbd">v²L²</span> أي أن النسبة = (30/6)² × 25² = 15625.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CHAPTER 6 ================= -->
+<section class="chapter" id="ch6">
+  <div class="ch-head"><div class="ch-num">٦</div><h2>الانسياب تحت سمك متغير</h2></div>
+  <p class="ch-tag">Fluid Flow Under Variable Head — عندما ينخفض منسوب الخزان أثناء التفريغ</p>
+
+  <div class="card">
+    <h3><span class="dot"></span>٦.١ الفكرة: السرعة نفسها تتغير مع الزمن</h3>
+    <p>في الفصول السابقة كان السمك H ثابتاً (خزان يُغذّى باستمرار). هنا نفرّغ خزاناً عبر فتحة، فينخفض المنسوب ⇒ ينخفض الضغط الدافع ⇒ تنخفض السرعة ⇒ <strong>لا يمكن استخدام معادلة واحدة مباشرة؛ نحتاج تكاملاً</strong>.</p>
+    <div class="eqbox">
+      \[ v = \sqrt{2gh} \quad\text{(تورشيللي عند منسوب لحظي h)} \qquad Q = C_d\,a\,\sqrt{2gh} \]
+      <small>a مساحة الفتحة، C_d معامل التصريف — السرعة دالة في المنسوب اللحظي h(t)</small>
+    </div>
+    <p>بموازنة نقصان حجم الخزان مع التصريف اللحظي: <span dir="ltr">A(−dh) = C_d·a·√(2gh)·dt</span>، وبالتكامل بين h₁ و h₂:</p>
+    <div class="eqbox">
+      \[ t = \frac{2A}{C_d\,a\,\sqrt{2g}}\left(\sqrt{h_1}-\sqrt{h_2}\right) \]
+      <small>زمن lowering المنسوب من h₁ إلى h₂ — لاحظ الجذور لا الفروق العادية!</small>
+    </div>
+    <div class="warn"><span class="ttl">⚠️ خطأ شائع #١٦</span>
+      <ul>
+        <li>حساب الزمن بقسمة الحجم الكلي على تصريف "متوسط" بسيط — العلاقة غير خطية (مع الجذر)، والتكامل إلزامي.</li>
+        <li>نسيان معامل التصريف C_d (عملياً ≈ 0.6 للفتحات الحادة) أو افتراضه 1 دون إذن من السؤال.</li>
+        <li>خلط الإشارة: h تتناقص ⇒ dh سالبة، والزمن موجب دائماً. رتّب الحدود بحيث يكون √h₁ − √h₂ موجباً.</li>
+        <li>إذا كان التفريغ إلى الجو من قاع الخزان فالسمك h يُقاس من مركز الفتحة إلى السطح الحر — وليس ارتفاع الخزان الكلي.</li>
+      </ul>
+    </div>
+    <div class="tip"><span class="ttl">💡 ربط بالمقرر كله</span>
+      هذا الفصل هو "مسألة الأنابيب" لكن بسمك متغير: اكتب برنولي + الفقدات لأي لحظة، ثم اربطها بموازنة الحجم وتكامل على الزمن. نفس المنهجية، طبقة زمنية إضافية.</div>
+  </div>
+</section>
+
+<!-- ================= CALCULATORS ================= -->
+<section class="chapter" id="calcs">
+  <div class="ch-head"><div class="ch-num">🧮</div><h2>حاسبات تفاعلية — جرّب بنفسك</h2></div>
+  <p class="ch-tag">طبّق معادلات المقرر فوراً وتحقق من فهمك لنظام الانسياب.</p>
+
+  <div class="card calc-card">
+    <h3><span class="dot"></span>الحاسبة ١: عدد رينولدز ونظام الانسياب</h3>
+    <div class="calc-grid">
+      <div><label>السرعة v (m/s)</label><input type="number" id="re-v" value="2" step="0.1"></div>
+      <div><label>القطر / الطول المميز D (m)</label><input type="number" id="re-d" value="0.1" step="0.01"></div>
+      <div><label>اللزوجة الحركية ν (m²/s)</label><input type="number" id="re-nu" value="0.000001" step="0.0000001"></div>
+    </div>
+    <button class="calc-btn" onclick="calcRe()">احسب Re</button>
+    <div class="calc-out" id="re-out">أدخل القيم ثم اضغط احسب</div>
+  </div>
+
+  <div class="card calc-card">
+    <h3><span class="dot"></span>الحاسبة ٢: الفقد الكلي في أنبوب (دارسي + ثانويات)</h3>
+    <div class="calc-grid">
+      <div><label>معامل الاحتكاك f</label><input type="number" id="hf-f" value="0.01" step="0.001"></div>
+      <div><label>الطول L (m)</label><input type="number" id="hf-l" value="40" step="1"></div>
+      <div><label>القطر D (m)</label><input type="number" id="hf-d" value="0.15" step="0.01"></div>
+      <div><label>السرعة v (m/s)</label><input type="number" id="hf-v" value="1.5" step="0.1"></div>
+    </div>
+    <div class="calc-grid" style="grid-template-columns:repeat(auto-fit,minmax(130px,1fr));font-size:14px">
+      <label style="display:flex;gap:6px;align-items:center"><input type="checkbox" id="m-in" checked> مدخل 0.5</label>
+      <label style="display:flex;gap:6px;align-items:center"><input type="checkbox" id="m-out" checked> مخرج 1.0</label>
+      <label style="display:flex;gap:6px;align-items:center"><input type="checkbox" id="m-elb"> مرفق 1.0</label>
+      <label style="display:flex;gap:6px;align-items:center"><input type="checkbox" id="m-bend"> منحني 0.3</label>
+      <label style="display:flex;gap:6px;align-items:center"><input type="checkbox" id="m-con"> تقلص 0.5</label>
+      <label style="display:flex;gap:6px;align-items:center"><input type="checkbox" id="m-valve"> صمام 10</label>
+    </div>
+    <button class="calc-btn" onclick="calcHf()">احسب الفقدات</button>
+    <div class="calc-out" id="hf-out">أدخل القيم ثم اضغط احسب</div>
+  </div>
+
+  <div class="card calc-card">
+    <h3><span class="dot"></span>الحاسبة ٣: الطبقة الحدية فوق صفيحة مستوية</h3>
+    <div class="calc-grid">
+      <div><label>سرعة التيار الحر U₀ (m/s)</label><input type="number" id="bl-u" value="6" step="0.5"></div>
+      <div><label>المسافة من المقدمة x (m)</label><input type="number" id="bl-x" value="0.45" step="0.05"></div>
+      <div><label>اللزوجة الحركية ν (m²/s)</label><input type="number" id="bl-nu" value="0.00009" step="0.00001"></div>
+      <div><label>الكثافة ρ (kg/m³)</label><input type="number" id="bl-rho" value="925" step="5"></div>
+    </div>
+    <button class="calc-btn" onclick="calcBL()">احسب δ و τ₀</button>
+    <div class="calc-out" id="bl-out">أدخل القيم ثم اضغط احسب</div>
+  </div>
+</section>
+
+<!-- ================= GOLDEN RULES ================= -->
+<section class="chapter" id="golden">
+  <div class="ch-head"><div class="ch-num">⭐</div><h2>القواعد الذهبية قبل الامتحان</h2></div>
+  <p class="ch-tag">خلاصة كل التنبيهات في قائمة تحقق واحدة.</p>
+
+  <div class="card">
+    <h3><span class="dot"></span>قائمة التحقق النهائية ✔</h3>
+    <div class="steps">
+      <div class="step"><strong>الوحدات أولاً:</strong> حوّل mm→m و km/h→m/s و stokes→m²/s قبل أي حساب. نصف أخطاء الطلاب تقع هنا.</div>
+      <div class="step"><strong>ارسم دائماً:</strong> مخطط المنظومة يحدد لك نقاط برنولي ومواقع الفقدات الثانوية التي ينساها من يحل من الذاكرة.</div>
+      <div class="step"><strong>وحّد السرعة:</strong> في الأنابيب المتسلسلة، كل حدود الفقد يجب أن تُكتب بدلالة سرعة واحدة عبر الاستمرارية.</div>
+      <div class="step"><strong>احسب Re قبل اختيار الصيغة:</strong> صفائحي أم مضطرب؟ هذا يقرر أي معامل وأية معادلة تستخدم في الطبقة الحدية والتشابه.</div>
+      <div class="step"><strong>القوس ثم التربيع:</strong> الاتساع المفاجئ (v₁−v₂)² وليس v₁²−v₂².</div>
+      <div class="step"><strong>مخرج الأنبوب فقد كامل:</strong> v²/2g تضيع كلها مهما كان المصب.</div>
+      <div class="step"><strong>التشابه: رينولدز للزوجة وفرود للجاذبية</strong> — وفي فرود لا تنسَ الجذر التربيعي للسرعة.</div>
+      <div class="step"><strong>الرفع ⊥ الانسياب، الممانعة ∥ الانسياب:</strong> ثم حلّل في اتجاه الدوران للريش: F_t = L sinθ − D cosθ.</div>
+      <div class="step"><strong>معيار الانفصال:</strong> (du/dy) عند الجدار فقط: موجبة = متصل، صفر = وشيك، سالبة = منفصل.</div>
+      <div class="step"><strong>السمك المتغير ⇒ تكامل:</strong> t ∝ (√h₁ − √h₂) وليس (h₁ − h₂).</div>
+    </div>
+    <div class="tip"><span class="ttl">💡 نصيحة أخيرة</span>
+      في الامتحان، اكتب اسم كل حد من حدود الفقد بجانبه (مدخل، احتكاك، اتساع، مخرج…). حتى لو أخطأت في حساب، المصحح يرى منهجيتك الصحيحة ويمنحك درجات الطريقة — والأسئلة كلها مبنية على هذه المنهجية المتكررة.</div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p><b>ميكانيك الموائع II</b> — ملخص تعليمي شامل مبني على محاضرات المقرر</p>
+  <p>المراجع: A Text Book of Fluid Mechanics and Hydraulic Machines (R.K. Rajput) • Fluid Mechanics (Frank M. White)</p>
+  <p style="margin-top:10px;font-size:13px">صُمم لمراجعة الطلبة — الفهم أولاً، الحفظ ثانياً 🌊</p>
+</footer>
+
+<button id="top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="إلى الأعلى">↑</button>
+
+<script>
+/* ---------- progress bar + top button ---------- */
+const prog = document.getElementById('progress');
+const topBtn = document.getElementById('top-btn');
+window.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  const p = h.scrollTop / (h.scrollHeight - h.clientHeight);
+  prog.style.width = (p * 100) + '%';
+  topBtn.classList.toggle('show', h.scrollTop > 600);
+});
+
+/* ---------- nav active state ---------- */
+const links = document.querySelectorAll('nav.chips a');
+const secs = [...links].map(a => document.querySelector(a.getAttribute('href')));
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(en => {
+    if (en.isIntersecting) {
+      links.forEach(l => l.classList.remove('active'));
+      const a = document.querySelector('nav.chips a[href="#' + en.target.id + '"]');
+      if (a) a.classList.add('active');
+    }
+  });
+}, { rootMargin: '-30% 0px -60% 0px' });
+secs.forEach(s => s && obs.observe(s));
+
+/* ---------- calculators ---------- */
+const g = 9.81;
+function fmt(x, d = 4) {
+  if (!isFinite(x)) return '—';
+  if (Math.abs(x) >= 10000 || (Math.abs(x) < 0.001 && x !== 0)) return x.toExponential(3);
+  return parseFloat(x.toFixed(d)).toString();
+}
+function num(id) { return parseFloat(document.getElementById(id).value); }
+
+function calcRe() {
+  const v = num('re-v'), d = num('re-d'), nu = num('re-nu');
+  const out = document.getElementById('re-out');
+  if (!(v > 0 && d > 0 && nu > 0)) { out.innerHTML = '⚠ أدخل قيماً موجبة صحيحة'; return; }
+  const Re = v * d / nu;
+  let regime, cls;
+  if (Re < 2000) { regime = 'صفائحي Laminar (أنابيب: Re < 2000)'; cls = 'rg-lam'; }
+  else if (Re < 4000) { regime = 'انتقالي Transitional (2000 – 4000)'; cls = 'rg-tr'; }
+  else { regime = 'مضطرب Turbulent (Re > 4000)'; cls = 'rg-tur'; }
+  out.innerHTML =
+    'Re = v·D/ν = ' + fmt(Re) +
+    '<br><span class="regime ' + cls + '">' + regime + '</span><br>' +
+    '<small style="color:#7fb8d8">لصفيحة مستوية: عتبة التحوّل ≈ 5×10⁵</small>';
+}
+
+function calcHf() {
+  const f = num('hf-f'), L = num('hf-l'), D = num('hf-d'), v = num('hf-v');
+  const out = document.getElementById('hf-out');
+  if (!(f > 0 && L > 0 && D > 0 && v > 0)) { out.innerHTML = '⚠ أدخل قيماً موجبة صحيحة'; return; }
+  const Kf = 4 * f * L / D;                       /* course convention hf = 4fLv²/2gD */
+  const hf = Kf * v * v / (2 * g);
+  let Cs = 0, names = [];
+  if (document.getElementById('m-in').checked)    { Cs += 0.5; names.push('مدخل'); }
+  if (document.getElementById('m-out').checked)   { Cs += 1.0; names.push('مخرج'); }
+  if (document.getElementById('m-elb').checked)   { Cs += 1.0; names.push('مرفق'); }
+  if (document.getElementById('m-bend').checked)  { Cs += 0.3; names.push('منحني'); }
+  if (document.getElementById('m-con').checked)   { Cs += 0.5; names.push('تقلص'); }
+  if (document.getElementById('m-valve').checked) { Cs += 10;  names.push('صمام'); }
+  const hm = Cs * v * v / (2 * g);
+  out.innerHTML =
+    'K(friẖ) = 4fL/D = ' + fmt(Kf) + '  →  h_f = ' + fmt(hf) + ' m<br>' +
+    'ΣC(minor) = ' + fmt(Cs, 2) + (names.length ? ' [' + names.join(' + ') + ']' : ' [لا ثانويات]') +
+    '  →  h_minor = ' + fmt(hm) + ' m<br>' +
+    '<b style="color:#ffd98a">الفقد الكلي h_total = ' + fmt(hf + hm) + ' m</b>';
+}
+
+function calcBL() {
+  const U = num('bl-u'), x = num('bl-x'), nu = num('bl-nu'), rho = num('bl-rho');
+  const out = document.getElementById('bl-out');
+  if (!(U > 0 && x > 0 && nu > 0 && rho > 0)) { out.innerHTML = '⚠ أدخل قيماً موجبة صحيحة'; return; }
+  const Rex = U * x / nu;
+  let body;
+  if (Rex < 5e5) {
+    const delta = 5 * x / Math.sqrt(Rex);
+    const tau = 0.332 * rho * U * U / Math.sqrt(Rex);
+    body = 'النظام: <span class="regime rg-lam">صفائحي ✓</span><br>' +
+      'δ = 5x/√Re_x = ' + fmt(delta * 1000, 2) + ' mm<br>' +
+      'τ₀ = 0.332·ρU²/√Re_x = ' + fmt(tau, 2) + ' N/m²';
+  } else {
+    const delta = 0.37 * x / Math.pow(Rex, 0.2);
+    body = 'النظام: <span class="regime rg-tur">مضطرب</span><br>' +
+      'δ = 0.37x/Re_x^0.2 = ' + fmt(delta * 1000, 2) + ' mm<br>' +
+      'C_D للصفيحة حتى x: صفائحي 1.328/√Re ، مضطرب 0.074/Re^0.2';
+  }
+  out.innerHTML = 'Re_x = U·x/ν = ' + fmt(Rex) + '<br>' + body;
+}
+</script>
+</body>
+</html>
