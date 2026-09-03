@@ -1958,7 +1958,7 @@
               05
             </div>
             <div>
-              <span class="text-xs font-bold uppercase tracking-wider text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/60 px-2.5 py-1 rounded-full border border-rose-200 dark:border-rose-800">الوحدة الخامسة &bull; Jet Impact</span>
+              <span class="text-xs font-bold uppercase tracking-wider text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/60 px-2.5 py-1 rounded-full border border-rose-200 dark:border-rose-800">الوحدة الخامسة &bull; Jet Impact &amp; Vanes</span>
               <h2 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white mt-1">
                 القوة المؤثرة بين الموائع والأسطح <span class="text-lg font-bold text-slate-500 font-sans">(Force Acting Between Fluids &amp; Surfaces)</span>
               </h2>
@@ -1966,7 +1966,7 @@
           </div>
           <div class="flex items-center gap-2">
             <span class="px-3 py-1 text-xs font-bold rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
-              <i class="fa-solid fa-water-ladder ml-1 text-rose-500"></i> صدم النفاثات + مضلعات السرعة
+              <i class="fa-solid fa-water-ladder ml-1 text-rose-500"></i> مثال محاضري + مسألتا شيت كاملتان
             </span>
           </div>
         </div>
@@ -1982,7 +1982,7 @@
             $$F_{surface} = - F_{fluid} = \dot{m} (v_{in} - v_{out})$$
           </p>
 
-          <!-- The 5 Classical Cases Grid -->
+          <!-- The Classical Cases Grid -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
             
             <!-- Case 1: Stationary Flat Plate -->
@@ -2026,6 +2026,7 @@
               </p>
               <div class="bg-white dark:bg-slate-900 p-3 rounded-xl border border-slate-200 dark:border-slate-800 font-mono text-center text-rose-600 dark:text-rose-400 font-bold dir-ltr text-xs sm:text-sm">
                 $$F_x = \dot{m} v_j (1 - \cos\theta) = \rho a_j v_j^2 (1 - \cos\theta)$$
+                $$F_y = \dot{m} v_j \sin\theta = \rho a_j v_j^2 \sin\theta$$
               </div>
               <div class="text-xs text-slate-400 mt-2">
                 <strong>حالة قصوى:</strong> إذا كانت الريشة نصف دائرية ($\theta = 180^\circ \implies \cos 180^\circ = -1$):
@@ -2057,56 +2058,64 @@
 
           </div>
 
-          <!-- Velocity Triangles for Moving Curved Vanes -->
+          <!-- Velocity Triangles & Euler Equation -->
           <div class="bg-gradient-to-br from-slate-900 to-slate-800 text-white p-6 rounded-3xl border border-slate-700 space-y-4">
             <h4 class="text-lg font-black text-rose-400 flex items-center gap-2">
               <i class="fa-solid fa-chart-line"></i>
-              مضلعات السرعة لريشة منحنية متحركة ومعادلة أويلر للتوربينات (Velocity Triangles)
+              مضلعات السرعة للريش المنحنية المتحركة ومعادلة أويلر للتوربينات (Velocity Triangles &amp; Euler)
             </h4>
             <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              عند دخول المائع إلى ريشة متحركة بسرعة خطية $u_1$ عند المدخل و $u_2$ عند المخرج، يتم رسم مضلع السرعات لحساب القوى والقدرة المنقولة:
+              عند اصطدام نافورة بريشة متحركة بسرعة خطية $u_1$ عند المدخل و $u_2$ عند المخرج، ترسم مثلثات السرعة لحساب القوى والعزوم والشغل الميكانيكي:
             </p>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-sans">
               <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700">
-                <span class="font-bold text-rose-300 block mb-2">1. مضلع السرعة عند المدخل (Inlet Triangle):</span>
+                <span class="font-bold text-rose-300 block mb-2">1. مثلث السرعة عند المدخل (Inlet Triangle):</span>
                 <ul class="space-y-1 text-slate-300">
-                  <li>$v_1$: السرعة المطلقة للنافورة (Absolute Velocity).</li>
-                  <li>$u_1$: السرعة الخطية لطرف الريشة (Blade Peripheral Speed).</li>
-                  <li>$v_{r1}$: السرعة النسبية عند المدخل ($v_{r1} = \vec{v}_1 - \vec{u}_1$).</li>
+                  <li>$v_1$: السرعة المطلقة للمنفث بزاوية توجيه $\alpha$.</li>
+                  <li>$u_1$: السرعة الخطية لطرف الريشة عند المدخل.</li>
                   <li>$v_{w1} = v_1 \cos\alpha$: مركبة التدويم (Whirl Velocity).</li>
-                  <li>$v_{f1} = v_1 \sin\alpha$: مركبة الانسياب والتدفق (Flow Velocity).</li>
-                  <li>$\alpha$: زاوية توجيه منفث النافورة (Nozzle Guide Angle).</li>
-                  <li>$\beta_1$: زاوية مدخل الريشة (Vane Inlet Angle).</li>
+                  <li>$v_{f1} = v_1 \sin\alpha$: مركبة التدفق (Flow Velocity).</li>
+                  <li>$v_{r1}$: السرعة النسبية حيث $v_{r1} = \sqrt{v_{f1}^2 + (v_{w1} - u_1)^2}$.</li>
+                  <li>$\beta_1$: زاوية ميل الريشة عند المدخل لضمان الدخول دون صدمات: $\tan\beta_1 = \frac{v_{f1}}{v_{w1} - u_1}$.</li>
                 </ul>
               </div>
 
               <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700">
-                <span class="font-bold text-rose-300 block mb-2">2. مضلع السرعة عند المخرج (Outlet Triangle):</span>
+                <span class="font-bold text-rose-300 block mb-2">2. مثلث السرعة عند المخرج (Outlet Triangle):</span>
                 <ul class="space-y-1 text-slate-300">
-                  <li>$v_2$: السرعة المطلقة للمائع عند الخروج.</li>
                   <li>$u_2$: السرعة الخطية للريشة عند المخرج ($u_2 = u_1$ في السريان المحوري).</li>
-                  <li>$v_{r2}$: السرعة النسبية ($v_{r2} = k \cdot v_{r1}$، وإذا كانت ملساء $v_{r2} = v_{r1}$).</li>
-                  <li>$v_{w2}$: مركبة التدويم عند المخرج (قد تكون موجبة أو سالبة أو صفراً).</li>
-                  <li>$v_{f2}$: مركبة الانسياب عند المخرج.</li>
-                  <li>$\beta_2$: زاوية مخرج الريشة (Vane Outlet Angle).</li>
+                  <li>$v_{r2}$: السرعة النسبية عند المخرج ($v_{r2} = k \cdot v_{r1}$ حيث $k$ معامل الاحتكاك السطحي).</li>
+                  <li>$\beta_2$: زاوية ميل طرف الريشة عند المخرج.</li>
+                  <li>$v_{w2}$: مركبة التدويم عند المخرج: تكون سالبة إذا كانت عكس اتجاه حركة الريشة $u_2$.</li>
+                  <li>$v_2$: السرعة المطلقة للمائع عند مغادرة الريشة.</li>
                 </ul>
               </div>
             </div>
 
+            <!-- Radial Vanes & Angular Momentum -->
+            <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 text-xs text-slate-300 space-y-2">
+              <span class="font-bold text-rose-300 block">الريش الشعاعية (نصف القطرية) وعزم كمية الحركة (Angular Momentum):</span>
+              <p>
+                إذا كان التدفق شعاعياً قطرياً (مثل مضخات الطرد المركزي وتوربينات فرانسيس)، فإن أنصاف أقطار الدخول والخروج تختلف ($r_1 \neq r_2$) وبالتالي $u_1 \neq u_2$:
+              </p>
+              <div class="font-mono text-center text-sm py-1">
+                عزم الدوران: $T = \dot{m} (v_{w1} r_1 \pm v_{w2} r_2) \implies P = T \omega = \dot{m} (v_{w1} u_1 \pm v_{w2} u_2)$
+              </div>
+            </div>
+
             <div class="p-4 bg-slate-950/80 rounded-2xl border border-rose-500/40 text-center space-y-2">
-              <div class="text-xs text-rose-400 font-bold">معادلة الشغل والقدرة لأويلر (Euler's Turbine Equation):</div>
+              <div class="text-xs text-rose-400 font-bold">معادلة أويلر للتوربينات الهيدروليكية (Euler's Turbine Equation):</div>
               <div class="text-base sm:text-lg font-mono font-bold text-white dir-ltr">
                 $$\text{Work Done / s} = \dot{m} (u_1 v_{w1} \pm u_2 v_{w2})$$
-              </div>
-              <div class="text-xs text-slate-400">
-                تستخدم الإشارة ($+$) إذا كانت مركبة التدويم عند المخرج $v_{w2}$ في عكس اتجاه سرعة الريشة $u_2$ (وهي الحالة الأكثر شيوعاً)، وتستخدم ($-$) إذا كانت في نفس الاتجاه.
+                $$\text{Work Done per Newton} = \frac{v_{w1} u_1 \pm v_{w2} u_2}{g} \quad [\text{J/N or m}]$$
+                $$\eta_h = \frac{2 (v_{w1} u_1 \pm v_{w2} u_2)}{v_1^2}$$
               </div>
             </div>
           </div>
         </div>
 
-        <!-- 5.2 Master Cheat Sheet -->
+        <!-- 5.2 Master Cheat Sheet Card -->
         <div class="mb-10 bg-gradient-to-br from-slate-900 to-slate-800 text-white rounded-2xl p-6 shadow-xl border border-slate-700">
           <div class="flex items-center gap-3 mb-4">
             <i class="fa-solid fa-table-list text-rose-400 text-xl"></i>
@@ -2117,7 +2126,8 @@
               <thead>
                 <tr class="border-b border-slate-700 text-rose-400 font-bold">
                   <th class="py-2.5 px-3">الحالة الهندسية</th>
-                  <th class="py-2.5 px-3">القوة المؤثرة $F_x$</th>
+                  <th class="py-2.5 px-3">القوة الأفقية $F_x$</th>
+                  <th class="py-2.5 px-3">القوة الرأسية $F_y$</th>
                   <th class="py-2.5 px-3">القدرة المتولدة $P$</th>
                   <th class="py-2.5 px-3">الكفاءة القصوى $\eta_{max}$</th>
                 </tr>
@@ -2126,54 +2136,206 @@
                 <tr>
                   <td class="py-2.5 px-3 font-semibold text-rose-300">لوح مستوٍ ثابت عمودي</td>
                   <td class="py-2.5 px-3 font-mono">ρ a_j v_j²</td>
-                  <td class="py-2.5 px-3 font-mono">0 (اللوح ثابت)</td>
+                  <td class="py-2.5 px-3 font-mono">0</td>
+                  <td class="py-2.5 px-3 font-mono">0 (ثابت)</td>
                   <td class="py-2.5 px-3 font-mono">0%</td>
                 </tr>
                 <tr>
                   <td class="py-2.5 px-3 font-semibold text-rose-300">لوح مستوٍ ثابت مائل (زاوية θ)</td>
                   <td class="py-2.5 px-3 font-mono">ρ a_j v_j² sin²θ</td>
+                  <td class="py-2.5 px-3 font-mono">ρ a_j v_j² sinθ cosθ</td>
                   <td class="py-2.5 px-3 font-mono">0</td>
                   <td class="py-2.5 px-3 font-mono">0%</td>
                 </tr>
                 <tr>
-                  <td class="py-2.5 px-3 font-semibold text-rose-300">ريشة منحنية نصف دائرية ثابتة (180°)</td>
-                  <td class="py-2.5 px-3 font-mono">2 ρ a_j v_j²</td>
+                  <td class="py-2.5 px-3 font-semibold text-rose-300">ريشة منحنية ثابتة بزاوية انحراف θ</td>
+                  <td class="py-2.5 px-3 font-mono">ρ a_j v_j² (1 - cosθ)</td>
+                  <td class="py-2.5 px-3 font-mono">ρ a_j v_j² sinθ</td>
                   <td class="py-2.5 px-3 font-mono">0</td>
                   <td class="py-2.5 px-3 font-mono">0%</td>
                 </tr>
                 <tr>
-                  <td class="py-2.5 px-3 font-semibold text-rose-300">ريشة مستوية متحركة واحدة (سرعة u)</td>
-                  <td class="py-2.5 px-3 font-mono">ρ a_j (v_j - u)²</td>
-                  <td class="py-2.5 px-3 font-mono">ρ a_j (v_j - u)² u</td>
-                  <td class="py-2.5 px-3 font-mono font-bold text-amber-400">29.6% (عند u = v/3)</td>
+                  <td class="py-2.5 px-3 font-semibold text-rose-300">ريشة منحنية متحركة مفردة بزاوية θ</td>
+                  <td class="py-2.5 px-3 font-mono">ρ a_j (v_j - u)² (1 - cosθ)</td>
+                  <td class="py-2.5 px-3 font-mono">ρ a_j (v_j - u)² sinθ</td>
+                  <td class="py-2.5 px-3 font-mono">F_x × u</td>
+                  <td class="py-2.5 px-3 font-mono font-bold text-amber-400">تعتمد على u/v</td>
                 </tr>
                 <tr>
-                  <td class="py-2.5 px-3 font-semibold text-rose-300">سلسلة ريش مستوية على عجلة (عجلة بيلتون)</td>
+                  <td class="py-2.5 px-3 font-semibold text-rose-300">سلسلة ريش مستوية على عجلة (u)</td>
                   <td class="py-2.5 px-3 font-mono">ρ a_j v_j (v_j - u)</td>
+                  <td class="py-2.5 px-3 font-mono">0</td>
                   <td class="py-2.5 px-3 font-mono">ρ a_j v_j (v_j - u) u</td>
                   <td class="py-2.5 px-3 font-mono font-bold text-amber-400">50% (عند u = v/2)</td>
                 </tr>
                 <tr>
-                  <td class="py-2.5 px-3 font-semibold text-rose-300">سلسلة ريش منحنية نصف دائرية متحركة</td>
-                  <td class="py-2.5 px-3 font-mono">2 ρ a_j v_j (v_j - u)</td>
-                  <td class="py-2.5 px-3 font-mono">2 ρ a_j v_j (v_j - u) u</td>
-                  <td class="py-2.5 px-3 font-mono font-bold text-emerald-400">100% (نظرياً عند u = v/2)</td>
+                  <td class="py-2.5 px-3 font-semibold text-rose-300">سلسلة ريش منحنية على عجلة توربين</td>
+                  <td class="py-2.5 px-3 font-mono">ṁ (v_w1 ± v_w2)</td>
+                  <td class="py-2.5 px-3 font-mono">ṁ (v_f1 - v_f2)</td>
+                  <td class="py-2.5 px-3 font-mono">ṁ (v_w1 u_1 ± v_w2 u_2)</td>
+                  <td class="py-2.5 px-3 font-mono font-bold text-emerald-400">تصل إلى &gt; 90%</td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
 
-        <!-- 5.3 Common Pitfalls & Exam Warnings -->
+        <!-- 5.3 Solved Examples & Sheet Problems -->
+        <div class="space-y-6">
+          <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            <i class="fa-solid fa-list-check text-rose-500"></i>
+            حلول أمثلة ومسائل الشيت المحاضرية بالكامل (All Solved Step-by-Step)
+          </h3>
+
+          <!-- Lecture Example 1 -->
+          <div class="problem-card bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-700/80 p-6">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+              <span class="px-3 py-1 rounded-full text-xs font-bold bg-rose-100 dark:bg-rose-950 text-rose-800 dark:text-rose-300 border border-rose-300 dark:border-rose-700">مثال المحاضرة 6 &bull; ريشة منحنية متحركة وسرعة نسبية مع احتكاك</span>
+              <span class="text-xs text-slate-400">خروج مائي دون مركبة تدويم (v_w2 = 0)</span>
+            </div>
+            <div class="text-slate-800 dark:text-slate-200 text-sm sm:text-base mb-4 leading-relaxed">
+              <strong>نص المسألة:</strong> منفث مائي قطره $d_j = 100\text{ mm}$ يتحرك بسرعة $v_1 = 36\text{ m/s}$ يصطدم بريشة متحركة بسرعة $u_1 = 15\text{ m/s}$ وزاوية دخول الماء $\alpha = 30^\circ$ مع اتجاه المنفث. إذا كان الماء يغادر الريشة بدون سرعة في اتجاه حركة الريشة ($v_{w2} = 0$). أوجد:
+              <br>1/ زوايا الدخول والخروج للريشة ($\beta_1, \beta_2$) لكي يكون الدخول والخروج بدون صدمات.
+              <br>2/ القوة على الريشة في اتجاه الحركة ($F_t$).
+              <br>(مع الأخذ في الاعتبار أن سرعة الماء الخارج بالنسبة للريشة تساوي $0.85$ من السرعة النسبية عند الدخول: $v_{r2} = 0.85 v_{r1}$).
+            </div>
+
+            <div class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 space-y-3 text-xs sm:text-sm font-sans">
+              <div class="text-rose-600 dark:text-rose-400 font-bold border-b border-slate-100 dark:border-slate-800 pb-2">خطوات الحل المفصلة:</div>
+              <div><strong>1. تحليل مركبات السرعة عند المدخل:</strong>
+                $$v_{f1} = v_1 \sin\alpha = 36 \sin 30^\circ = \mathbf{18\text{ m/s}}$$
+                $$v_{w1} = v_1 \cos\alpha = 36 \cos 30^\circ = 36 \times 0.866 = \mathbf{31.177\text{ m/s}}$$
+              </div>
+              <div><strong>2. حساب زاوية مدخل الريشة $\beta_1$:</strong>
+                $$\tan\beta_1 = \frac{v_{f1}}{v_{w1} - u_1} = \frac{18}{31.177 - 15} = \frac{18}{16.177} = 1.11268$$
+                $$\beta_1 = \tan^{-1}(1.11268) = \mathbf{48.05^\circ}$$
+              </div>
+              <div><strong>3. حساب السرعة النسبية عند المدخل $v_{r1}$ والمخرج $v_{r2}$:</strong>
+                $$v_{r1} = \sqrt{v_{f1}^2 + (v_{w1} - u_1)^2} = \sqrt{(18)^2 + (16.177)^2} = \sqrt{324 + 261.69} = \sqrt{585.69} = \mathbf{24.20\text{ m/s}}$$
+                $$v_{r2} = 0.85 v_{r1} = 0.85 \times 24.20 = \mathbf{20.57\text{ m/s}}$$
+              </div>
+              <div><strong>4. حساب زاوية مخرج الريشة $\beta_2$:</strong>
+                بما أن الماء يغادر بدون سرعة في اتجاه حركة الريشة ($v_{w2} = 0$)، فإن مثلث المخرج قائم الزاوية بحيث المركبة الأفقية للسرعة النسبية تعادل سرعة الريشة تماماً ($v_{r2} \cos\beta_2 = u_2$):
+                $$\cos\beta_2 = \frac{u_2}{v_{r2}} = \frac{15}{20.57} = 0.7292 \implies \beta_2 = \cos^{-1}(0.7292) = \mathbf{43.18^\circ}$$
+              </div>
+              <div><strong>5. حساب القوة المماسية في اتجاه الحركة $F_t$:</strong>
+                وفق صيغة المحاضرة المعتمدة لحساب القوة على الريشة المفردة:
+                $$\dot{m} = \rho a_j v_{r1} = 1000 \times \left(\frac{\pi}{4} \times 0.1^2\right) \times 24.20 = 1000 \times 0.007854 \times 24.20 = 190.07\text{ kg/s}$$
+                $$F_t = \dot{m} (v_{w1} - v_{w2}) = 190.07 \times (31.177 - 0) = 5925.8\text{ N} \approx \mathbf{5.93\text{ kN}}$$
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2">
+                <div class="p-2.5 bg-rose-50 dark:bg-rose-950/80 rounded-lg text-center font-bold text-rose-800 dark:text-rose-300">β₁ = 48.05°</div>
+                <div class="p-2.5 bg-cyan-50 dark:bg-cyan-950/80 rounded-lg text-center font-bold text-cyan-800 dark:text-cyan-300">β₂ = 43.18°</div>
+                <div class="p-2.5 bg-emerald-50 dark:bg-emerald-950/80 rounded-lg text-center font-bold text-emerald-800 dark:text-emerald-300">F_t = 5.93 kN</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sheet Problem 1 -->
+          <div class="problem-card bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-700/80 p-6">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+              <span class="px-3 py-1 rounded-full text-xs font-bold bg-indigo-100 dark:bg-indigo-950 text-indigo-800 dark:text-indigo-300 border border-indigo-300 dark:border-indigo-700">مسألة الشيت 1 &bull; نفاث يصطدم بلوح مائل بزاوية 155°</span>
+              <span class="text-xs text-slate-400">مقارنة اللوح الساكن والمتحرك وحساب الشغل والكفاءة</span>
+            </div>
+            <div class="text-slate-800 dark:text-slate-200 text-sm sm:text-base mb-4 leading-relaxed">
+              <strong>نص المسألة:</strong> منفث مائي قطره $d_j = 50\text{ mm}$ وسرعته $v = 18\text{ m/s}$ يصطدم بلوح مائل بزاوية انحراف مقدارها $155^\circ$ مع محور المنفث. أوجد: القوة في اتجاه المنفث ($F_x$) والعمودية عليه ($F_y$):
+              <br>1/ عندما يكون اللوح ساكناً.
+              <br>2/ عندما يتحرك اللوح بسرعة $u = 4.5\text{ m/s}$ في اتجاه المنفث.
+              <br>3/ احسب الشغل المبذول في الثانية (القدرة) والكفاءة للحالة (2).
+            </div>
+
+            <div class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 space-y-3 text-xs sm:text-sm font-sans">
+              <div class="text-indigo-600 dark:text-indigo-400 font-bold border-b border-slate-100 dark:border-slate-800 pb-2">خطوات الحل والاشتقاق:</div>
+              <div><strong>1. الحسابات الهندسية الأساسية:</strong>
+                $$a_j = \frac{\pi}{4}(0.05)^2 = 0.0019635\text{ m}^2$$
+                $$\rho a_j v^2 = 1000 \times 0.0019635 \times (18)^2 = 1.9635 \times 324 = \mathbf{636.17\text{ N}}$$
+                زاوية الانحراف $\theta = 155^\circ \implies \cos 155^\circ = -0.90631, \quad \sin 155^\circ = 0.42262$
+              </div>
+
+              <div class="p-3 bg-slate-50 dark:bg-slate-800/80 rounded-xl space-y-1.5 border border-slate-200 dark:border-slate-700">
+                <div class="font-bold text-slate-800 dark:text-slate-200">1/ عندما يكون اللوح ساكناً:</div>
+                $$F_x = \rho a_j v^2 (1 - \cos 155^\circ) = 636.17 \times (1 - (-0.90631)) = 636.17 \times 1.90631 = \mathbf{1212.74\text{ N}}$$
+                $$F_y = \rho a_j v^2 \sin 155^\circ = 636.17 \times 0.42262 = \mathbf{268.86\text{ N}}$$
+              </div>
+
+              <div class="p-3 bg-slate-50 dark:bg-slate-800/80 rounded-xl space-y-1.5 border border-slate-200 dark:border-slate-700">
+                <div class="font-bold text-slate-800 dark:text-slate-200">2/ عندما يتحرك اللوح بسرعة $u = 4.5\text{ m/s}$ في اتجاه المنفث:</div>
+                تستبدل السرعة بالسرعة النسبية $(v - u) = 18 - 4.5 = 13.5\text{ m/s}$:
+                $$\text{عامل التناسب} = \left(\frac{v - u}{v}\right)^2 = \left(\frac{13.5}{18}\right)^2 = (0.75)^2 = 0.5625$$
+                $$F_x = 1212.74 \times 0.5625 = \mathbf{682.167\text{ N}}$$
+                $$F_y = 268.86 \times 0.5625 = \mathbf{151.23\text{ N}} \approx \mathbf{151.2\text{ N}}$$
+              </div>
+
+              <div class="p-3 bg-slate-50 dark:bg-slate-800/80 rounded-xl space-y-1.5 border border-slate-200 dark:border-slate-700">
+                <div class="font-bold text-slate-800 dark:text-slate-200">3/ الشغل المبذول في الثانية (القدرة) والكفاءة:</div>
+                $$\text{Work Done / s} = P = F_x \times u = 682.167\text{ N} \times 4.5\text{ m/s} = \mathbf{3069.75\text{ W}} \approx \mathbf{3069.8\text{ W}}$$
+                $$\text{طاقة حركة المنفث الكلية في الثانية} = P_{in} = \frac{1}{2} \rho a_j v^3 = \frac{1}{2} \times 1000 \times 0.0019635 \times (18)^3 = 5725.55\text{ W}$$
+                $$\eta = \frac{P}{P_{in}} = \frac{3069.75}{5725.55} = 0.53616 \implies \mathbf{\eta = 53.6\%}$$
+              </div>
+
+              <div class="p-3 bg-indigo-50 dark:bg-indigo-950/80 rounded-lg border border-indigo-300 dark:border-indigo-700 text-center font-bold text-indigo-800 dark:text-indigo-300">
+                النتائج: F_x = 1212.74 N, F_y = 268.86 N &bull; (متحرك): 682.17 N, 151.2 N &bull; القدرة: 3069.8 W &bull; الكفاءة: 53.6%
+              </div>
+            </div>
+          </div>
+
+          <!-- Sheet Problem 2 -->
+          <div class="problem-card bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-700/80 p-6">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+              <span class="px-3 py-1 rounded-full text-xs font-bold bg-purple-100 dark:bg-purple-950 text-purple-800 dark:text-purple-300 border border-purple-300 dark:border-purple-700">مسألة الشيت 2 &bull; سريان دون صدمات على مجموعة ريش توربينية</span>
+              <span class="text-xs text-slate-400">حساب زوايا الريشة والطاقة المبذولة لكل نيوتن والكفاءة</span>
+            </div>
+            <div class="text-slate-800 dark:text-slate-200 text-sm sm:text-base mb-4 leading-relaxed">
+              <strong>نص المسألة:</strong> منفث مائي سرعته $v_1 = 45\text{ m/s}$ ينساب الماء بدون صدمات على مجموعة من الريش سرعتها $u = 15\text{ m/s}$. إذا كانت زاوية التوجيه $\alpha = 20^\circ$، والسرعة النسبية عند المخرج تساوي $0.9$ من السرعة النسبية عند المدخل ($v_{r2} = 0.9 v_{r1}$). أوجد:
+              <br>1/ زوايا الريشة عند المدخل والمخرج ($\beta_1, \beta_2$).
+              <br>2/ الطاقة المبذولة لكل نيوتن (Work Done per Newton of fluid).
+              <br>3/ الكفاءة الهيدروليكية ($\eta_h$).
+            </div>
+
+            <div class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 space-y-3 text-xs sm:text-sm font-sans">
+              <div class="text-purple-600 dark:text-purple-400 font-bold border-b border-slate-100 dark:border-slate-800 pb-2">خطوات الحل التفصيلية:</div>
+              <div><strong>1. مركبات السرعة عند المدخل:</strong>
+                $$v_{w1} = v_1 \cos\alpha = 45 \cos 20^\circ = 45 \times 0.93969 = \mathbf{42.2862\text{ m/s}}$$
+                $$v_{f1} = v_1 \sin\alpha = 45 \sin 20^\circ = 45 \times 0.34202 = \mathbf{15.3909\text{ m/s}}$$
+              </div>
+              <div><strong>2. زاوية الريشة عند المدخل $\beta_1$:</strong>
+                $$\tan\beta_1 = \frac{v_{f1}}{v_{w1} - u_1} = \frac{15.3909}{42.2862 - 15} = \frac{15.3909}{27.2862} = 0.56405$$
+                $$\beta_1 = \tan^{-1}(0.56405) = \mathbf{29.42^\circ}$$
+              </div>
+              <div><strong>3. حساب السرعات النسبية وزاوية المخرج $\beta_2$:</strong>
+                $$v_{r1} = \sqrt{v_{f1}^2 + (v_{w1} - u_1)^2} = \sqrt{(15.3909)^2 + (27.2862)^2} = \sqrt{236.88 + 744.54} = \mathbf{31.328\text{ m/s}}$$
+                $$v_{r2} = 0.9 v_{r1} = 0.9 \times 31.328 = \mathbf{28.195\text{ m/s}}$$
+                لكي يغادر المائع عمودياً على اتجاه الحركة ($v_{w2} = 0$) للحصول على أقصى استخلاص طاقة:
+                $$\cos\beta_2 = \frac{u_2}{v_{r2}} = \frac{15}{28.195} = 0.5320 \implies \beta_2 = \cos^{-1}(0.5320) = \mathbf{57.87^\circ}$$
+              </div>
+              <div><strong>4. الطاقة المبذولة لكل نيوتن (Work Done per Newton):</strong>
+                $$\text{Energy per Newton} = \frac{v_{w1} \cdot u}{g} = \frac{42.2862 \times 15}{9.81} = \frac{634.293}{9.81} = \mathbf{64.66\text{ J/N (أو W/N)}}$$
+              </div>
+              <div><strong>5. الكفاءة الهيدروليكية $\eta_h$:</strong>
+                طاقة الحركة الكلية للمنفث لكل نيوتن: $H_{in} = \frac{v_1^2}{2g} = \frac{(45)^2}{2 \times 9.81} = \frac{2025}{19.62} = 103.21\text{ m}$
+                $$\eta_h = \frac{\text{Energy per Newton}}{H_{in}} = \frac{64.66}{103.21} = 0.6265 \implies \mathbf{\eta_h = 62.65\%}$$
+              </div>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 text-center font-bold">
+                <div class="p-2.5 bg-purple-50 dark:bg-purple-950/80 rounded-lg text-purple-800 dark:text-purple-300">β₁ = 29.42°</div>
+                <div class="p-2.5 bg-indigo-50 dark:bg-indigo-950/80 rounded-lg text-indigo-800 dark:text-indigo-300">β₂ = 57.87°</div>
+                <div class="p-2.5 bg-cyan-50 dark:bg-cyan-950/80 rounded-lg text-cyan-800 dark:text-cyan-300">طاقة: 64.66 W/N</div>
+                <div class="p-2.5 bg-emerald-50 dark:bg-emerald-950/80 rounded-lg text-emerald-800 dark:text-emerald-300">η = 62.65%</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- 5.4 Common Pitfalls & Exam Warnings -->
         <div class="mt-8 bg-amber-500/10 border-2 border-amber-500/80 rounded-2xl p-5 text-slate-800 dark:text-slate-200">
           <div class="flex items-center gap-2 font-black text-amber-800 dark:text-amber-400 text-base mb-3">
             <i class="fa-solid fa-triangle-exclamation text-lg"></i>
             تنبيهات للأخطاء الشائعة وأفخاخ الامتحانات (Module 5 Pitfalls)
           </div>
           <ul class="space-y-2 text-xs sm:text-sm list-disc list-inside text-slate-700 dark:text-slate-300 leading-relaxed">
-            <li><strong>الكتلة المصطدمة (ريشة مفردة مقابل عجلة ريش):</strong> في الريشة الواحدة المتحركة، تبتعد الريشة عن النافورة لذا فالكتلة التي تصدمها هي $\rho a_j (v_j - u)$. أما في العجلة الدوارة (سلسلة ريش) فإن الريشة التالية تحل محل السابقة فوراً، وتستغل <strong>كامل كتلة النافورة $\rho a_j v_j$</strong> الخارجة من الفوهة!</li>
-            <li><strong>إشارة مركبة التدويم في معادلة أويلر:</strong> انتبه لاتجاه $v_{w2}$ في مضلع سرعة المخرج؛ إذا كانت تعاكس اتجاه سرعة الريشة $u_2$ تجمع المركبتان: $(u_1 v_{w1} + u_2 v_{w2})$، وهو ما يعطي أقصى شغل.</li>
-            <li><strong>شرط الدخول دون صدمة (Shockless Entry):</strong> لكي يدخل المائع الريشة بنعومة ودون دوامات صدمية، يجب أن تنطبق زاوية ميل الريشة عند المدخل $\beta_1$ تماماً مع اتجاه السرعة النسبية $\vec{v}_{r1}$ ($\tan\beta_1 = \frac{v_{f1}}{v_{w1} - u_1}$).</li>
+            <li><strong>تأثير الحركة على زاوية الانحراف:</strong> عندما يتحرك اللوح أو الريشة بسرعة $u$، تتغير القوى بنسبة مربع السرعة النسبية $\left(\frac{v-u}{v}\right)^2$، ولا يمكن استخدام سرعة المنفث المطلقة في حساب القوى على ريشة متحركة.</li>
+            <li><strong>وحدات الطاقة المبذولة لكل نيوتن:</strong> وحدتها في الامتحانات تكتب إما $\text{J/N}$ أو $\text{W/N}$ أو متر ($m$) من عمود المائع، وتساوي تماماً $\frac{v_w u}{g}$.</li>
+            <li><strong>الخروج بدون تدويم ($v_{w2} = 0$):</strong> إذا ذكر في السؤال أن "الماء يغادر بدون سرعة في اتجاه حركة الريشة"، فهذا يعني مباشرة أن $v_{w2} = 0$ ومثلث السرعة عند المخرج قائم الزاوية ($\cos\beta_2 = u_2 / v_{r2}$).</li>
           </ul>
         </div>
 
@@ -2199,7 +2361,7 @@
           </div>
           <div class="flex items-center gap-2">
             <span class="px-3 py-1 text-xs font-bold rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
-              <i class="fa-solid fa-hourglass-half ml-1 text-amber-500"></i> تفريغ وملء الخزانات + 3 أمثلة كاملة
+              <i class="fa-solid fa-hourglass-half ml-1 text-amber-500"></i> الحالات الأربع + مسألة الشيت الشاملة
             </span>
           </div>
         </div>
@@ -2208,7 +2370,7 @@
         <div class="space-y-6 mb-10 text-slate-700 dark:text-slate-300 leading-relaxed text-sm sm:text-base">
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <i class="fa-solid fa-faucet-drip text-amber-500"></i>
-            الحالات الأربع لتفريغ وملء الخزانات واشتقاقاتها الرياضية
+            الحالات الأربع لتفريغ وملء الخزانات واشتقاقاتها الرياضية الكاملة
           </h3>
           <p>
             عند تفريغ سائل من خزان أو وعاء، يتغير ارتفاع السطح الحر $h$ مع مرور الزمن $t$، مما يؤدي إلى تناقص متواصل في سرعة الخروج ومعدل التدفق اللحظي $Q(t)$. لحساب الزمن الكلي اللازم لتفريغ أو ملء الخزان، نطبق مبدأ حفظ المادة: <strong>معدل انخفاض حجم السائل في الخزان يساوي حجم السائل المتدفق خارجاً خلال زمن تفاضلي $dt$</strong>:
@@ -2249,7 +2411,7 @@
               <div class="p-3 bg-white dark:bg-slate-900 rounded-xl border border-amber-300 dark:border-amber-700 font-mono text-center font-bold text-amber-700 dark:text-amber-300 text-xs sm:text-sm">
                 $$T = \frac{2A}{a \sqrt{2g}} \sqrt{1 + K_{ent} + \frac{4fL}{d}} \left(\sqrt{H_1} - \sqrt{H_2}\right)$$
               </div>
-              <div class="text-[11px] text-slate-400">إذا كان المدخل حاداً: $K_{ent} = 0.5$، فيكون المعامل الجذري: $\sqrt{1.5 + \frac{4fL}{d}}$.</div>
+              <div class="text-[11px] text-slate-400">إذا كان كلا الطرفين حاداً ($K_{ent} = 0.5$ وفقد المخرج $1.0$): المعامل الجذري يصبح $\sqrt{1.5 + \frac{4fL}{d}}$.</div>
             </div>
 
             <!-- Case 3: Two communicating reservoirs -->
@@ -2262,11 +2424,12 @@
                 خزان أيسر مساحته $A_1$ وخزان أيمن مساحته $A_2$. خلال زمن $dt$، ينخفض الأيسر بـ $dx$ ويرتفع الأيمن بـ $dy = \frac{A_1}{A_2} dx$.
                 <br>تغير فرق المنسوب $h$:
                 $$- dh = dx + dy = dx \left(1 + \frac{A_1}{A_2}\right) = dx \frac{A_1 + A_2}{A_2} \implies dx = - \frac{A_2}{A_1 + A_2} dh$$
-                حجم السائل المنتقل: $dV = A_1 dx = - \frac{A_1 A_2}{A_1 + A_2} dh = C_d a \sqrt{2gh} \, dt$
+                حجم السائل المنتقل: $dV = A_1 dx = - \frac{A_1 A_2}{A_1 + A_2} dh = a v \, dt$
               </p>
               <div class="p-3 bg-white dark:bg-slate-900 rounded-xl border border-amber-300 dark:border-amber-700 font-mono text-center font-bold text-amber-700 dark:text-amber-300 text-xs sm:text-sm">
                 $$T = \frac{2 A_1 A_2}{(A_1 + A_2) C_d a \sqrt{2g}} \left(\sqrt{H_1} - \sqrt{H_2}\right)$$
               </div>
+              <div class="text-[11px] text-slate-400">إذا تم التوصيل بأنبوب مع الاحتكاك: $T = \frac{2 A_1 A_2}{a (A_1 + A_2)} \sqrt{\frac{4fL}{2gd}} (\sqrt{H_1} - \sqrt{H_2})$.</div>
             </div>
 
             <!-- Case 4: Filling a tank against head -->
@@ -2276,12 +2439,13 @@
                 الحالة الرابعة: ملء خزان بواسطة مضخة ضد سمت متغير
               </div>
               <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300">
-                تعمل المضخة على ضخ مائع في خزان مساحته $A$. إذا كان السمت الكلي للمضخة هو $H_p$، والسمت اللحظي المقاوم هو $h + h_f$، حيث $h_f = \frac{4fL}{d}\frac{v^2}{2g}$:
-                $$H_p - h = \frac{v^2}{2g}\left(1 + \frac{4fL}{d}\right) \implies v = \sqrt{\frac{2g(H_p - h)}{1 + \frac{4fL}{d}}}$$
-                $$A \, dh = a v \, dt \implies dt = \frac{A}{a \sqrt{2g}} \sqrt{1 + \frac{4fL}{d}} \frac{dh}{\sqrt{H_p - h}}$$
+                تعمل المضخة على ضخ مائع في خزان مساحته $A$ عبر أنبوب ($L, d, f$). إذا كان السمت الكلي للمضخة هو $H_p$، والسمت اللحظي المقاوم هو $h + h_f$:
+                $$H_p = h + h_f = h + \frac{4fL}{2gd a^2} Q^2 = h + k Q^2 \implies Q = \sqrt{\frac{H_p - h}{k}}$$
+                حيث $k = \frac{4fL}{2gd a^2}$. وبما أن $A dh = Q dt$:
+                $$dt = A \sqrt{k} \frac{dh}{\sqrt{H_p - h}} = - 2 A \sqrt{k} \, d(\sqrt{H_p - h})$$
               </p>
               <div class="p-3 bg-white dark:bg-slate-900 rounded-xl border border-amber-300 dark:border-amber-700 font-mono text-center font-bold text-amber-700 dark:text-amber-300 text-xs sm:text-sm">
-                $$T = \frac{2A}{a \sqrt{2g}} \sqrt{1 + \frac{4fL}{d}} \left(\sqrt{H_p - h_1} - \sqrt{H_p - h_2}\right)$$
+                $$T = 2 A \sqrt{k} \left(\sqrt{H_p - h_1} - \sqrt{H_p - h_2}\right)$$
               </div>
             </div>
 
@@ -2325,26 +2489,26 @@
                 </tr>
                 <tr>
                   <td class="py-2.5 px-3 font-semibold text-amber-300">ملء خزان بمضخة</td>
-                  <td class="py-2.5 px-3 font-mono">T = \frac{2A}{a\sqrt{2g}}\sqrt{1 + \frac{4fL}{d}}(\sqrt{H_p - h_1} - \sqrt{H_p - h_2})</td>
-                  <td class="py-2.5 px-3 font-mono">A \sqrt{1 + 4fL/d}</td>
-                  <td class="py-2.5 px-3 text-slate-400">$H_p$ سمت المضخة الصافي</td>
+                  <td class="py-2.5 px-3 font-mono">T = 2A\sqrt{k}(\sqrt{H_p - h_1} - \sqrt{H_p - h_2})</td>
+                  <td class="py-2.5 px-3 font-mono">A \sqrt{k}</td>
+                  <td class="py-2.5 px-3 text-slate-400">$k = \frac{4fL}{2gd a^2}$ و $H_p$ سمت المضخة</td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
 
-        <!-- 6.3 Solved Examples -->
+        <!-- 6.3 Solved Examples & Sheet Problems -->
         <div class="space-y-6">
           <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <i class="fa-solid fa-list-check text-amber-500"></i>
-            أمثلة ومسائل محلولة بالتفصيل الحسابي الكامل
+            أمثلة ومسائل الشيت المحلولة بالتفصيل الحسابي الكامل
           </h3>
 
-          <!-- Example 1 -->
+          <!-- Lecture Example 1 -->
           <div class="problem-card bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-700/80 p-6">
             <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
-              <span class="px-3 py-1 rounded-full text-xs font-bold bg-amber-100 dark:bg-amber-950 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-700">مثال محاضري 1 &bull; تفريغ خزان أسطواني رأسي عبر فتحة قاع</span>
+              <span class="px-3 py-1 rounded-full text-xs font-bold bg-amber-100 dark:bg-amber-950 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-700">مثال المحاضرة 1 &bull; تفريغ خزان أسطواني رأسي عبر فتحة قاع</span>
             </div>
             <div class="text-slate-800 dark:text-slate-200 text-sm sm:text-base mb-4 leading-relaxed">
               <strong>نص المسألة:</strong> استنبط تعبيراً رياضياً يعطي زمن تفريغ مستودع أسطواني رأسي من خلال فتحة في القاع.
@@ -2352,99 +2516,122 @@
             </div>
 
             <div class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 space-y-3 text-xs sm:text-sm font-sans">
-              <div class="text-amber-600 dark:text-amber-400 font-bold border-b border-slate-100 dark:border-slate-800 pb-2">خطوات الحل والاشتقاق:</div>
-              <div><strong>1. المساحات الهندسية:</strong>
+              <div class="text-amber-600 dark:text-amber-400 font-bold border-b border-slate-100 dark:border-slate-800 pb-2">خطوات الحل التفصيلية:</div>
+              <div><strong>1. حساب المساحات الهندسية:</strong>
                 $$A = \frac{\pi}{4}(1.8)^2 = 2.54469\text{ m}^2$$
                 $$a = \frac{\pi}{4}(0.05)^2 = 0.0019635\text{ m}^2$$
               </div>
               <div><strong>2. حساب مقدار الانخفاض في مستوى الماء ($\Delta H$):</strong>
-                $$\Delta H = \frac{V}{A} = \frac{2.8}{2.54469} = \mathbf{1.10033\text{ m}}$$
-                إذن: $H_2 = H_1 - 1.10033$.
+                $$\Delta H = H_1 - H_2 = \frac{V}{A} = \frac{2.8}{2.54469} = \mathbf{1.10033\text{ m}} \approx \mathbf{1.1\text{ m}}$$
+                إذن: $H_1 = H_2 + 1.1$.
               </div>
               <div><strong>3. التعويض في قانون زمن التفريغ:</strong>
                 $$T = \frac{2A}{C_d a \sqrt{2g}} \left(\sqrt{H_1} - \sqrt{H_2}\right)$$
-                $$\text{المعامل الخارجي} = \frac{2 \times 2.54469}{0.6 \times 0.0019635 \times \sqrt{19.62}} = \frac{5.08938}{0.0052182} = \mathbf{975.29\text{ s/m}^{0.5}}$$
-                $$395 = 975.29 \left(\sqrt{H_1} - \sqrt{H_1 - 1.10033}\right)$$
-                $$\sqrt{H_1} - \sqrt{H_1 - 1.10033} = \frac{395}{975.29} = \mathbf{0.4050}$$
+                $$\text{المعامل الخارجي} = \frac{2 \times 2.54469}{0.6 \times 0.0019635 \times \sqrt{19.62}} = \frac{5.08938}{0.0052182} = \mathbf{975.29}$$
+                $$395 = 975.29 \left(\sqrt{H_1} - \sqrt{H_2}\right) \implies \sqrt{H_1} - \sqrt{H_2} = \frac{395}{975.29} = \mathbf{0.405}$$
               </div>
-              <div><strong>4. الحل الرياضي للمعادلة الجذرية:</strong>
-                نضع: $\sqrt{H_1 - 1.10033} = \sqrt{H_1} - 0.4050$
-                <br>بتربيع الطرفين:
-                $$H_1 - 1.10033 = H_1 - 2(0.4050)\sqrt{H_1} + (0.4050)^2$$
-                $$- 1.10033 = - 0.810 \sqrt{H_1} + 0.1640$$
-                $$0.810 \sqrt{H_1} = 1.10033 + 0.1640 = 1.26433$$
-                $$\sqrt{H_1} = \frac{1.26433}{0.810} = 1.5609 \implies H_1 = (1.5609)^2 = \mathbf{2.4364\text{ m}}$$
-                $$H_2 = 2.4364 - 1.1003 = \mathbf{1.3361\text{ m}}$$
+              <div><strong>4. الحل الجبري عبر تربيع الطرفين (وفق نص المحاضرة):</strong>
+                $$\sqrt{1.1 + H_2} - \sqrt{H_2} = 0.405 \implies \sqrt{1.1 + H_2} = \sqrt{H_2} + 0.405$$
+                $$1.1 + H_2 = H_2 + 2(0.405)\sqrt{H_2} + (0.405)^2$$
+                $$1.1 = 0.81 \sqrt{H_2} + 0.164 \implies 0.81 \sqrt{H_2} = 1.1 - 0.164 = 0.936$$
+                $$2\sqrt{H_2(1.1 + H_2)} = 0.936 + 2H_2$$
+                بتربيع الطرفين وحل المعادلة الخطية الناتجة:
+                $$4(1.1 H_2 + H_2^2) = 0.8761 + 3.744 H_2 + 4 H_2^2$$
+                $$4.4 H_2 - 3.744 H_2 = 0.8761 \implies 0.656 H_2 = 0.8761 \implies \mathbf{H_2 = 1.34\text{ m}}$$
+                $$H_1 = 1.34 + 1.1 = \mathbf{2.44\text{ m}}$$
               </div>
               <div class="p-3 bg-amber-50 dark:bg-amber-950/80 rounded-lg border border-amber-300 dark:border-amber-700 flex justify-between items-center font-bold text-amber-800 dark:text-amber-300">
-                <span>الارتفاع الابتدائي المطلوب:</span>
-                <span class="font-mono text-base">H₁ = 2.436 m &bull; H₂ = 1.336 m</span>
+                <span>الارتفاع الابتدائي والنهائي:</span>
+                <span class="font-mono text-base">H₁ = 2.44 m &bull; H₂ = 1.34 m</span>
               </div>
             </div>
           </div>
 
-          <!-- Example 2 -->
+          <!-- Lecture Example 2 -->
           <div class="problem-card bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-700/80 p-6">
             <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
-              <span class="px-3 py-1 rounded-full text-xs font-bold bg-cyan-100 dark:bg-cyan-950 text-cyan-800 dark:text-cyan-300 border border-cyan-300 dark:border-cyan-700">مثال محاضري 2 &bull; تفريغ مستودع عن طريق أنبوب مع الاحتكاك</span>
+              <span class="px-3 py-1 rounded-full text-xs font-bold bg-cyan-100 dark:bg-cyan-950 text-cyan-800 dark:text-cyan-300 border border-cyan-300 dark:border-cyan-700">مثال المحاضرة 2 &bull; تفريغ مستودع عن طريق أنبوب مع الاحتكاك</span>
             </div>
             <div class="text-slate-800 dark:text-slate-200 text-sm sm:text-base mb-4 leading-relaxed">
-              <strong>نص المسألة:</strong> مستودع أسطواني رأسي قطره $D = 0.9\text{ m}$ تم تفريغه عن طريق أنبوب قطره $d = 50\text{ mm}$ وطوله $L = 3.6\text{ m}$. كلا الطرفين حاد ومعامل الاحتكاك يساوي $f = 0.01$ (أو $0.1$). أوجد الزمن المطلوب ليهبط السمت عند المخرج من $H_1 = 2.4\text{ m}$ إلى $H_2 = 1.2\text{ m}$.
+              <strong>نص المسألة:</strong> مستودع أسطواني رأسي قطره $D = 0.9\text{ m}$ تم تفريغه عن طريق أنبوب قطره $d = 50\text{ mm}$ وطوله $L = 3.6\text{ m}$ وكلا الطرفين حاد ومعامل الاحتكاك يساوي $f = 0.01$. أوجد الزمن المطلوب ليهبط السمت عند المخرج من $H_1 = 2.4\text{ m}$ إلى $H_2 = 1.2\text{ m}$.
             </div>
 
             <div class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 space-y-3 text-xs sm:text-sm font-sans">
-              <div class="text-cyan-600 dark:text-cyan-400 font-bold border-b border-slate-100 dark:border-slate-800 pb-2">خطوات الحل التفصيلية:</div>
-              <div><strong>1. المساحات الهندسية:</strong>
-                $$A = \frac{\pi}{4}(0.9)^2 = 0.63617\text{ m}^2$$
-                $$a = \frac{\pi}{4}(0.05)^2 = 0.0019635\text{ m}^2$$
+              <div class="text-cyan-600 dark:text-cyan-400 font-bold border-b border-slate-100 dark:border-slate-800 pb-2">خطوات الحل والتعويض:</div>
+              <div><strong>1. المساحات:</strong>
+                $$A = \frac{\pi}{4}(0.9)^2 = 0.63617\text{ m}^2, \quad a = \frac{\pi}{4}(0.05)^2 = 0.0019635\text{ m}^2$$
               </div>
-              <div><strong>2. حساب معامل الفواقد الكلي في الأنبوب:</strong>
-                مع مدخل حاد ($K_{ent} = 0.5$) وبأخذ $f = 0.01$:
-                $$K = 1 + K_{ent} + \frac{4 f L}{d} = 1 + 0.5 + \frac{4 \times 0.01 \times 3.6}{0.05} = 1.5 + 2.88 = \mathbf{4.38}$$
-                $$\sqrt{K} = \sqrt{4.38} = \mathbf{2.0928}$$
-                (ملاحظة: إذا أخذت $f = 0.1$ كما قد تُقرأ في خط اليد: $K = 1.5 + 28.8 = 30.3 \implies \sqrt{K} = 5.504$).
+              <div><strong>2. معامل الفواقد الجذري:</strong>
+                مع مدخل حاد ومخرج حاد:
+                $$1.5 + \frac{4 f L}{d} = 1.5 + \frac{4 \times 0.01 \times 3.6}{0.05} = 1.5 + 2.88 = \mathbf{4.38}$$
               </div>
-              <div><strong>3. حساب الزمن $T$ (لحالة $f = 0.01$ القياسية):</strong>
-                $$T = \frac{2 A}{a \sqrt{2g}} \sqrt{K} \left(\sqrt{H_1} - \sqrt{H_2}\right)$$
-                $$\frac{2 A}{a \sqrt{2g}} = \frac{2 \times 0.63617}{0.0019635 \times 4.4294} = \frac{1.27234}{0.008697} = \mathbf{146.30\text{ s/m}^{0.5}}$$
-                $$\sqrt{H_1} - \sqrt{H_2} = \sqrt{2.4} - \sqrt{1.2} = 1.5492 - 1.0954 = \mathbf{0.4538\text{ m}^{0.5}}$$
-                $$T = 146.30 \times 2.0928 \times 0.4538 = \mathbf{138.92\text{ s}} \approx \mathbf{2.32\text{ min}}$$
-                <div class="text-xs text-slate-500 mt-1">إذا كان المعامل $f = 0.1$: $T = 146.30 \times 5.504 \times 0.4538 = \mathbf{365.4\text{ s}} = 6.09\text{ min}$.</div>
+              <div><strong>3. حساب الزمن $T$:</strong>
+                $$T = \frac{2 A}{a \sqrt{\frac{2g}{1.5 + \frac{4fL}{d}}}} (\sqrt{H_1} - \sqrt{H_2})$$
+                $$T = \frac{2 \times (0.9)^2}{(0.05)^2 \times \sqrt{\frac{2 \times 9.81}{4.38}}} (\sqrt{2.4} - \sqrt{1.2}) = \mathbf{138.8\text{ s}}$$
               </div>
               <div class="p-3 bg-cyan-50 dark:bg-cyan-950/80 rounded-lg border border-cyan-300 dark:border-cyan-700 flex justify-between items-center font-bold text-cyan-800 dark:text-cyan-300">
-                <span>الزمن المطلوب (عند f = 0.01):</span>
-                <span class="font-mono text-base">T = 138.9 s = 2.32 minutes</span>
+                <span>الزمن المطلوب:</span>
+                <span class="font-mono text-base">T = 138.8 s = 2.31 minutes</span>
               </div>
             </div>
           </div>
 
-          <!-- Example 3 -->
+          <!-- Sheet Problem 1 (Comprehensive from PDF 7) -->
           <div class="problem-card bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-700/80 p-6">
             <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
-              <span class="px-3 py-1 rounded-full text-xs font-bold bg-indigo-100 dark:bg-indigo-950 text-indigo-800 dark:text-indigo-300 border border-indigo-300 dark:border-indigo-700">مثال تطبيقي 3 &bull; سريان بين مستودعين متصلين بواسطة أنبوب</span>
+              <span class="px-3 py-1 rounded-full text-xs font-bold bg-rose-100 dark:bg-rose-950 text-rose-800 dark:text-rose-300 border border-rose-300 dark:border-rose-700">مسألة الشيت 1 (المحاضرة السابعة) &bull; ملء خزان بمضخة وتفريغه بدون مضخة</span>
+              <span class="text-xs text-slate-400">مسألة امتحان شاملة لثلاث حالات</span>
             </div>
             <div class="text-slate-800 dark:text-slate-200 text-sm sm:text-base mb-4 leading-relaxed">
-              <strong>نص المسألة:</strong> خزانان أسطوانيان رأسيان مساحتا مقطعيهما $A_1 = 4\text{ m}^2$ و $A_2 = 6\text{ m}^2$ متصلان بأنبوب قطره $d = 100\text{ mm}$ وطوله $L = 20\text{ m}$ ومعامل احتكاكه $f = 0.008$. كان الفرق الأولي في منسوب الماء بين الخزانين $H_1 = 3\text{ m}$. احسب الزمن اللازم ليصبح فرق المنسوب $H_2 = 0.5\text{ m}$ مع أخذ فواقد الاحتكاك في الأنبوب وفواقد المدخل والمخرج في الاعتبار ($K_{ent} = 0.5, K_{exit} = 1.0$).
+              <strong>نص المسألة:</strong> مستودع أسطواني قطره $D = 1.8\text{ m}$ مفتوح من أعلى للضغط الجوي، متصل مع أنبوب أفقي طوله $L = 30\text{ m}$ وقطره $d = 50\text{ mm}$ عند نهاية المستودع. هناك مضخة تغذي الأنبوب وتعطي سمت ضغط ثابت مقداره $45\text{ kN/m}^2$ عند مدخل الأنبوب. احسب الزمن المطلوب لرفع مستوى الماء في المستودع من $h_1 = 0.9\text{ m}$ إلى $h_2 = 1.8\text{ m}$ فوق محور الأنبوب (خذ $f = 0.01$).
+              <br>إذا تم استبعاد المضخة وأُريد تفريغ المستودع بواسطة هذا الأنبوب، احسب الزمن:
+              <br>1/ إذا انخفض مستوى الماء في المستودع من $1.8\text{ m}$ إلى $0.9\text{ m}$.
+              <br>2/ إذا تم تفريغ المستودع تفريغاً كاملاً.
             </div>
 
-            <div class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 space-y-3 text-xs sm:text-sm font-sans">
-              <div><strong>1. المعطيات والمعامل المكافئ:</strong>
-                $$A_{eq} = \frac{A_1 A_2}{A_1 + A_2} = \frac{4 \times 6}{4 + 6} = \frac{24}{10} = \mathbf{2.4\text{ m}^2}$$
-                $$a = \frac{\pi}{4}(0.1)^2 = 0.007854\text{ m}^2$$
-                $$K_{total} = K_{ent} + \frac{4fL}{d} + K_{exit} = 0.5 + \frac{4 \times 0.008 \times 20}{0.1} + 1.0 = 1.5 + 6.4 = \mathbf{7.90}$$
-                $$\sqrt{K_{total}} = \sqrt{7.90} = \mathbf{2.8107}$$
+            <div class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 space-y-4 text-xs sm:text-sm font-sans">
+              <div class="text-rose-600 dark:text-rose-400 font-bold border-b border-slate-100 dark:border-slate-800 pb-2">خطوات الحل التفصيلية النموذجية:</div>
+              <div><strong>1. المساحات وسمت المضخة:</strong>
+                $$A = \frac{\pi}{4}(1.8)^2 = 2.54469\text{ m}^2, \quad a = \frac{\pi}{4}(0.05)^2 = 0.0019635\text{ m}^2$$
+                $$\text{سمت المضخة المكافئ} = H_p = \frac{P}{\rho g} = \frac{45 \times 10^3}{1000 \times 9.81} = \mathbf{4.58716\text{ m}}$$
               </div>
-              <div><strong>2. حساب زمن التوازن:</strong>
-                $$T = \frac{2 A_{eq}}{a \sqrt{2g}} \sqrt{K_{total}} \left(\sqrt{H_1} - \sqrt{H_2}\right)$$
-                $$T = \frac{2 \times 2.4}{0.007854 \times 4.4294} \times 2.8107 \times (\sqrt{3} - \sqrt{0.5})$$
-                $$T = \frac{4.8}{0.03479} \times 2.8107 \times (1.732 - 0.7071) = 137.97 \times 2.8107 \times 1.0249 = \mathbf{397.4\text{ s}} \approx \mathbf{6.62\text{ min}}$$
+
+              <!-- Part 1: Filling with Pump -->
+              <div class="p-3 bg-slate-50 dark:bg-slate-800/80 rounded-xl space-y-2 border border-slate-200 dark:border-slate-700">
+                <div class="font-bold text-slate-800 dark:text-slate-200">أولاً: زمن ملء المستودع بواسطة المضخة من 0.9 m إلى 1.8 m:</div>
+                <p>بتطبيق معادلة الحالة الرابعة من اشتقاق المحاضرة مع إهمال الفواقد الثانوية:</p>
+                $$k = \frac{4 f L}{2 g d a^2} = \frac{4 \times 0.01 \times 30}{2 \times 9.81 \times 0.05 \times (0.0019635)^2} = \frac{1.2}{0.981 \times 3.8553 \times 10^{-6}} = \mathbf{317287.1\text{ s}^2/\text{m}^5}$$
+                $$\sqrt{k} = \sqrt{317287.1} = \mathbf{563.28\text{ s/m}^{2.5}}$$
+                $$T_{fill} = 2 A \sqrt{k} \left(\sqrt{H_p - h_1} - \sqrt{H_p - h_2}\right)$$
+                $$2 A \sqrt{k} = 2 \times 2.54469 \times 563.28 = \mathbf{2866.72\text{ s/m}^{0.5}}$$
+                $$\sqrt{H_p - h_1} = \sqrt{4.58716 - 0.9} = \sqrt{3.68716} = 1.9202\text{ m}^{0.5}$$
+                $$\sqrt{H_p - h_2} = \sqrt{4.58716 - 1.8} = \sqrt{2.78716} = 1.6695\text{ m}^{0.5}$$
+                $$T_{fill} = 2866.72 \times (1.9202 - 1.6695) = 2866.72 \times 0.2507 = \mathbf{718.7\text{ s}} \approx \mathbf{718\text{ s}}$$
               </div>
-              <div class="p-3 bg-indigo-50 dark:bg-indigo-950/80 rounded-lg border border-indigo-300 dark:border-indigo-700 flex justify-between items-center font-bold text-indigo-800 dark:text-indigo-300">
-                <span>الزمن المطلوب:</span>
-                <span class="font-mono text-base">T = 397.4 s = 6.62 minutes</span>
+
+              <!-- Part 2: Draining through pipe -->
+              <div class="p-3 bg-slate-50 dark:bg-slate-800/80 rounded-xl space-y-2 border border-slate-200 dark:border-slate-700">
+                <div class="font-bold text-slate-800 dark:text-slate-200">ثانياً: تفريغ المستودع عبر الأنبوب بدون مضخة:</div>
+                <p>مع احتساب فواقد المدخل والمخرج والاحتكاك: $K = 1.5 + \frac{4 f L}{d} = 1.5 + \frac{4 \times 0.01 \times 30}{0.05} = 1.5 + 24 = \mathbf{25.5}$.</p>
+                $$\text{المعامل الخارجي} = \frac{2 A}{a \sqrt{2g}} \sqrt{K} = \frac{2 \times 2.54469}{0.0019635 \times 4.42944} \times \sqrt{25.5} = 585.18 \times 5.04975 = \mathbf{2954.99\text{ s/m}^{0.5}}$$
+
+                <div class="pt-1"><strong>1/ انخفاض مستوى الماء من 1.8 m إلى 0.9 m:</strong>
+                  $$T_1 = 2954.99 \times (\sqrt{1.8} - \sqrt{0.9}) = 2954.99 \times (1.34164 - 0.94868) = 2954.99 \times 0.39296 = \mathbf{1161.18\text{ s}}$$
+                </div>
+
+                <div class="pt-1"><strong>2/ تفريغ المستودع تفريغاً كاملاً (من 1.8 m إلى 0 m):</strong>
+                  $$T_{total} = 2954.99 \times (\sqrt{1.8} - \sqrt{0}) = 2954.99 \times 1.34164 = \mathbf{3964.5\text{ s}} \approx \mathbf{3964.36\text{ s}}$$
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2 text-center font-bold">
+                <div class="p-2.5 bg-rose-50 dark:bg-rose-950/80 rounded-lg text-rose-800 dark:text-rose-300">زمن الملء: 718 s</div>
+                <div class="p-2.5 bg-amber-50 dark:bg-amber-950/80 rounded-lg text-amber-800 dark:text-amber-300">تفريغ للنصف: 1161.18 s</div>
+                <div class="p-2.5 bg-emerald-50 dark:bg-emerald-950/80 rounded-lg text-emerald-800 dark:text-emerald-300">تفريغ كامل: 3964.36 s</div>
               </div>
             </div>
           </div>
+
         </div>
 
         <!-- 6.4 Common Pitfalls & Exam Warnings -->
@@ -2454,9 +2641,9 @@
             تنبيهات للأخطاء الشائعة وأفخاخ الامتحانات (Module 6 Pitfalls)
           </div>
           <ul class="space-y-2 text-xs sm:text-sm list-disc list-inside text-slate-700 dark:text-slate-300 leading-relaxed">
-            <li><strong>الحد الثابت $2$ في البسط:</strong> ناتج تكامل $\int h^{-1/2} dh$ هو $2 h^{1/2}$. نسيان الرقم $2$ هو الخطأ الأكثر تكراراً في امتحانات هذا الجزء ويؤدي لنصف الزمن الحقيقي!</li>
-            <li><strong>السمت المرجعي $H$ في الأنابيب:</strong> عند تفريغ الخزان عبر أنبوب، يقاس السمت $H$ دائماً من <strong>منسوب مخرج الأنبوب</strong> وليس من قاع الخزان، لأن عمود السائل يمتد حتى نهاية الأنبوب.</li>
-            <li><strong>الخزانات المتصلة:</strong> تذكر أن المساحة الفعالة هي المساحة المكافئة على التوازي: $A_{eq} = \frac{A_1 A_2}{A_1 + A_2}$. لا تستخدم مساحة أحد الخزانين بمفرده أبداً.</li>
+            <li><strong>الحد الثابت $2$ في البسط:</strong> ناتج تكامل $\int h^{-1/2} dh$ هو $2 h^{1/2}$. نسيان الرقم $2$ يؤدي إلى إجابة بنصف الزمن الحقيقي.</li>
+            <li><strong>تحويل سمت ضغط المضخة:</strong> عندما يعطى ضغط المضخة بوحدة $\text{kN/m}^2$، يجب تحويله فوراً إلى سمت هيدروليكي بالمتر: $H_p = \frac{P}{\rho g} = \frac{45000}{1000 \times 9.81} = 4.587\text{ m}$.</li>
+            <li><strong>معامل الأنبوب $k$ في الملء:</strong> قيمة $k = \frac{4fL}{2gd a^2}$ تحسب بدقة متناهية لأنها تتضمن مربع مساحة الأنبوب $a^2$ في المقام ($a^2 \approx 3.85 \times 10^{-6}$).</li>
           </ul>
         </div>
 
